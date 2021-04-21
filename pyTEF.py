@@ -232,7 +232,7 @@ def sort_1dim_xarray(data,dim='salt',var=['flux'],N=1024,salinity_array='auto'):
     # and give a xarray dataset as output
     ##################
     
-    salt = getattr(data,dim)
+    salt = getattr(data, dim)
     flux = getattr(data, var[0])
     if len(var)>1:
         for i in np.arange(1,len(var)):
@@ -268,9 +268,9 @@ def sort_1dim_xarray(data,dim='salt',var=['flux'],N=1024,salinity_array='auto'):
         #DeltaS = np.float64((s_max-s_min)/Nmax)
 
     
-    if np.ma.max(salt)> s_max:
+    if np.ma.max(salt)>s_max:
         print('Warning: s > s_max found', np.max(salt),s_max)
-    if np.ma.min(salt)< s_min:
+    if np.ma.min(salt)<s_min:
         print('Warning: s < s_min found', np.min(salt),s_min)
     
     DeltaS = np.float64((s_max-s_min)/float(Nmax))
@@ -561,8 +561,8 @@ def find_extrema(x,min_transport):
             if x[-1]==0: #for low salinity classes Q[-1] might not be zero as supposed.
                 jj=-1
                 while x[jj] == 0 and np.abs(jj) < len(x)-1:
-                    jj-=1
-                indices[-1]=len(x)+jj+1
+                    jj -=1
+                indices[-1] = len(x)+jj+1
         return indices,minmax
 
 def calc_bulk_values_new(coord,Qv,comp,min_trans='auto'):
