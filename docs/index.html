@@ -1,13 +1,13 @@
 ---
 
-title: Total Exchange Flow
+title: Total Exchange Flow (TEF)
 
 
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "Summary description here."
-description: "Summary description here."
+summary: "TEF analyzes the exchange flow of an estuary in salinity and/or temperature coordinates rather than spatial coordinates since the dynamics of most estuaries are controlled by the salt distribution. "
+description: "TEF analyzes the exchange flow of an estuary in salinity and/or temperature coordinates rather than spatial coordinates since the dynamics of most estuaries are controlled by the salt distribution. "
 nb_path: "index.ipynb"
 ---
 <!--
@@ -31,13 +31,13 @@ nb_path: "index.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Install">Install<a class="anchor-link" href="#Install"> </a></h2>
+<h2 id="Installing">Installing<a class="anchor-link" href="#Installing"> </a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><code>pip install tef</code></p>
+<p><code>pip install TotalExchangeFlow</code></p>
 
 </div>
 </div>
@@ -50,48 +50,55 @@ nb_path: "index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Find examples in</p>
+<p><code>00_tef_core.ipynb</code> contains the TEF framework and all documentation.</p>
+<p>Further you find different examples on how to use the TEF framework.</p>
+<ul>
+<li><code>01_example_persian_gulf.ipynb</code></li>
+</ul>
 
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>2</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="To-Do">To-Do<a class="anchor-link" href="#To-Do"> </a></h2><p>All variables have to be in the xarray dataset. 
-variable konsistent benennen
+<h2 id="Learn-about-TEF">Learn about TEF<a class="anchor-link" href="#Learn-about-TEF"> </a></h2><p>The TEF analysis framework (Burchard et al., 2018; Lorenz et al., 2019; MacCready, 2011) allows a consistent calculation of the transports and salinities of an exchange flow in salinity space. The main idea of TEF is that transports of volume and salinity in and out the estuary of the same salinity partially compensate since only the net exchange changes salinity and volume of the estuary.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The reader is referenced to the follwing literature:</p>
+<ul>
+<li><p><a href="http://rosdok.uni-rostock.de/resolve/id/rosdok_disshab_0000002489?_search=89c68482-f7cc-4363-89af-58ddebb819c2&amp;_hit=0">PhD thesis of Marvin Lorenz</a></p>
+</li>
+<li><p>Burchard, H., et al. (2018) The Knudsen theorem and the Total Exchange
+Flow analysis framework applied to the Baltic Sea. Progress in Oceanography,
+10.1016/j.pocean.2018.04.004.</p>
+</li>
+<li><p>Lorenz, M., Klingbeil, K., and Burchard, H. (2020) Numerical Study of the Persian Gulf using an Extended Total Exchange Flow Analysis Framework, J. Geophys. Res. Oceans, 125, e2019JC015527, <a href="https://doi.org/10.1029/2019JC015527">https://doi.org/10.1029/2019JC015527</a></p>
+</li>
+<li><p>Lorenz, M., Klingbeil, K., MacCready, P., and Burchard, H. (2019) Numerical issues of the Total Exchange Flow (TEF) analysis framework for quantifying estuarine circulation, Ocean Sci., 15, 601-614, <a href="https://doi.org/10.5194/os-15-601-2019">https://doi.org/10.5194/os-15-601-2019</a></p>
+</li>
+<li><p>MacCready, P., 2011: Calculating estuarine exchange flow using isohaline coordinates. Journal of Physical Oceanography, 41 (6), 1116–1124.</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="What's-new">What's new<a class="anchor-link" href="#What's-new"> </a></h2><h3 id="v0.1-(25.05.2021)">v0.1 (25.05.2021)<a class="anchor-link" href="#v0.1-(25.05.2021)"> </a></h3><ul>
+<li>implementation of 2D sorting</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>All variables have to be in the xarray dataset. variable konsistent benennen
 schichtdicke nicht depth</p>
 
 </div>
