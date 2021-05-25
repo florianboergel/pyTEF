@@ -12,7 +12,7 @@ Content
 
 Find examples in .
 
-```python
+```
 1+1
 ```
 
