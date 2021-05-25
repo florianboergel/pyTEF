@@ -83,7 +83,7 @@ class TEF_object():
     def dimensions(self):
         return list(self.ds.dims)
 
-    def read(self, filename, **kwargs):
+    def read(self, filename,  **kwargs):
         if self.ds is None:
             self.ds = xr.open_dataset(filename, **kwargs)
             logger.debug("read: {}".format(self.__str__))
@@ -212,6 +212,14 @@ class TEF_object():
             varmin = np.floor(sort_by_variable.min().values)
             varmax = np.ceil(sort_by_variable.max().values)
         else:
+            if minmaxrange[0] < sort_by_variable.min().values:
+                print("Warning: Given minimum value is lower than the minimum value of the variable.")
+                print("Warning: Given {}, minmum value of variable {}".format(minmaxrange[0],
+                                                                     sort_by_variable.min().values))
+            if minmaxrange[-1] > sort_by_variable.max().values:
+                print("Warning: Given maximum value is greater than the maximum value of the variable.")
+                print("Warning: Given {}, maximum value of variable {}".format(minmaxrange[-1],
+                                                                     sort_by_variable.max().values))
             if type(minmaxrange) != "numpy.ndarray":
                 print("Please provide array range e.g. np.arange(0,10)")
             else:
@@ -232,7 +240,7 @@ class TEF_object():
 
         var_Q = np.arange(varmin, varmax+delta_var, delta_var)
 
-        idx = xr.apply_ufunc(np.digitize, sort_by_variable, s_q)
+        idx = xr.apply_ufunc(np.digitize, sort_by_variable, var_q)
 
         out_q = np.zeros((self.timesteps,N))
 
@@ -257,3 +265,106 @@ class TEF_object():
         })
 
         return out
+
+
+    def sort_2dim(self, sort_by_variable = None,
+                        sort_by_variable2 = None,
+                        flux = None,
+                        N = None,
+                        minmaxrange = None,
+                        minmaxrange2 = None):
+
+            if sort_by_variable is None:
+                raise ValueError("Please define a variable that you want to sort by.")
+            if sort_by_variable2 is None:
+                raise ValueError("Please define a second variable that you want to sort by.")
+
+            if flux is None:
+                raise ValueError("Please provided flux term or calculate flux by using calc_flux()")
+
+            if minmaxrange is None:
+                varmin = np.floor(sort_by_variable.min().values)
+                varmax = np.ceil(sort_by_variable.max().values)
+            else:
+                if minmaxrange[0] < sort_by_variable.min().values:
+                    print("Warning: Given minimum value is lower than the minimum value of the variable.")
+                    print("Warning: Given {}, minmum value of variable {}".format(minmaxrange[0],
+                                                                         sort_by_variable.min().values))
+                if minmaxrange[-1] > sort_by_variable.max().values:
+                    print("Warning: Given maximum value is greater than the maximum value of the variable.")
+                    print("Warning: Given {}, maximum value of variable {}".format(minmaxrange[-1],
+                                                                         sort_by_variable.max().values))
+                if type(minmaxrange) != "numpy.ndarray":
+                    print("Please provide array range e.g. np.arange(0,10)")
+                else:
+                    varmin = minmaxrange[0]
+                    varmax = minmaxrange[-1]
+
+            if minmaxrange2 is None:
+                varmin2 = np.floor(sort_by_variable2.min().values)
+                varmax2 = np.ceil(sort_by_variable2.max().values)
+            else:
+                if minmaxrange2[0] < sort_by_variable2.min().values:
+                    print("Warning: Given minimum value is lower than the minimum value of the variable.")
+                    print("Warning: Given {}, minmum value of variable {}".format(minmaxrange2[0],
+                                                                         sort_by_variable2.min().values))
+                if minmaxrange2[-1] > sort_by_variable2.max().values:
+                    print("Warning: Given maximum value is greater than the maximum value of the variable.")
+                    print("Warning: Given {}, maximum value of variable {}".format(minmaxrange2[-1],
+                                                                         sort_by_variable2.max().values))
+                if type(minmaxrange2) != "numpy.ndarray":
+                    print("Please provide array range e.g. np.arange(0,10)")
+                else:
+                    varmin2 = minmaxrange2[0]
+                    varmax2 = minmaxrange2[-1]
+
+            if N is None:
+                N = 1024
+                logger.info("Setting N to default value of 1024")
+
+
+            delta_var = ((varmax-varmin)/N)
+            delta_var2 = ((varmax2-varmin2)/N)
+
+            var_q = np.linspace(varmin + 0.5*delta_var,
+                                varmax - 0.5*delta_var,
+                                N)
+
+            var_q2 = np.linspace(varmin2 + 0.5*delta_var2,
+                                 varmax2 - 0.5*delta_var2,
+                                 N)
+
+
+            var_Q = np.linspace(varmin, varmax, N+1)
+            var_Q2 = np.linspace(varmin2, varmax2, N+1)
+
+            idx = xr.apply_ufunc(np.digitize, sort_by_variable, var_q)
+            idy = xr.apply_ufunc(np.digitize, sort_by_variable2, var_q2)
+
+            out_q = np.zeros((self.timesteps,N, N))
+
+            for i in range(N):
+                for j in range(N):
+                    out_q[:, i, j] = flux.where((idx == i) & (idy == j)).sum([self._get_name_depth(),
+                                                                              self._get_name_latitude(),
+                                                                              self._get_name_longitude()]) / delta_var / delta_var2
+
+            out_Q = np.zeros((self.timesteps, N+1, N+1))
+
+            for i in range(N):
+                for j in range(N):
+                    out_Q[:, i, j] = np.sum(out_q[:, i:, j:] * delta_var * delta_var2)
+
+
+            out = xr.Dataset({
+            "q2": (["time", "var_q", "var_q2"], out_q),
+            "Q2": (["time", "var_Q", "var_Q2"], out_Q)},
+            coords={
+                "time": (["time"], self.ds[self._get_name_time()]),
+                "var_q": (["var_q"],var_q),
+                "var_q2": (["var_q2"], var_q2),
+                "var_Q": (["var_Q"], var_Q),
+                "var_Q2": (["var_Q2"], var_Q2),
+            })
+
+            return out
