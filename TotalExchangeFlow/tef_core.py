@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 # Cell
 class TEF_object():
-
+    """Total Exchange Flow (TEF) Object used for calculating TEF properties"""
     def __init__(self, filename = None, ds = None, **kwargs):
 
         # What happens if no filename is provided
@@ -84,6 +84,7 @@ class TEF_object():
         return list(self.ds.dims)
 
     def read(self, filename,  **kwargs):
+        """Reads xarray dataset"""
         if self.ds is None:
             self.ds = xr.open_dataset(filename, **kwargs)
             logger.debug("read: {}".format(self.__str__))
@@ -95,7 +96,7 @@ class TEF_object():
            longitude_name=None,
            latitude_name=None,
            depth_name=None):
-
+        """Setup xarray.dataset and transposes dimensions into needed format"""
         # set dimensions
         if time_name is None:
             self._time_name = self._get_name_time()
@@ -203,6 +204,7 @@ class TEF_object():
         self.flux = vel*height*delta
 
     def sort_1dim(self, sort_by_variable = None, flux = None, N = None, minmaxrange = None):
+        """Sort fluxes by one given variable"""
         if sort_by_variable is None:
             raise ValueError("Please define a variable that you want to sort by.")
         if flux is None:
@@ -273,7 +275,7 @@ class TEF_object():
                         N = None,
                         minmaxrange = None,
                         minmaxrange2 = None):
-
+            """Sort fluxes by two given variables"""
             if sort_by_variable is None:
                 raise ValueError("Please define a variable that you want to sort by.")
             if sort_by_variable2 is None:
