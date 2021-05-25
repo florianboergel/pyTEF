@@ -1,7 +1,7 @@
 {
   "TotalExchangeFlow": {
     "Overview": "/",
-    "Title": "tef_core.html",
-    "Total Exchange Flow": "example_persian_gulf.html"
+    "TEF core framework": "tef_core.html",
+    "Example 1": "example_persian_gulf.html"
   }
 }

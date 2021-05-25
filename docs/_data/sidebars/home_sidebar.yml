@@ -10,10 +10,10 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: Title
+      title: TEF core framework
       url: tef_core.html
     - output: web,pdf
-      title: Total Exchange Flow
+      title: Example 1
       url: example_persian_gulf.html
     output: web
     title: TotalExchangeFlow
