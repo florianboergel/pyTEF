@@ -7,8 +7,8 @@ index = {"logger": "00_tef_core.ipynb",
 
 modules = ["tef_core.py"]
 
-doc_url = "https://florianboergel.github.io/tef/"
+doc_url = "https://florianboergel.github.io/TotalExchangeFlow/"
 
-git_url = "https://github.com/florianboergel/tef/tree/master/"
+git_url = "https://github.com/florianboergel/TotalExchangeFlow/tree/master/"
 
 def custom_doc_links(name): return None
