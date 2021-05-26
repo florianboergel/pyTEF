@@ -1,13 +1,13 @@
 ---
 
-title: Total Exchange Flow
+title: Example 1
 
 
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "Example for the persian gulf."
-description: "Example for the persian gulf."
+summary: "TEF applied for the Persian Gulf."
+description: "TEF applied for the Persian Gulf."
 nb_path: "01_example_persian_gulf.ipynb"
 ---
 <!--
@@ -37,7 +37,7 @@ nb_path: "01_example_persian_gulf.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">TotalExchangeFlow.tef_core</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">pylab</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 </pre></div>
 
@@ -56,7 +56,686 @@ nb_path: "01_example_persian_gulf.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;./data/SoH_2_2011_01.nc&quot;</span><span class="p">)</span>
-<span class="n">tef</span> <span class="o">=</span> <span class="n">TEF_object</span><span class="p">(</span><span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ds</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class='xr-text-repr-fallback'>&lt;xarray.Dataset&gt;
+Dimensions:     (latc: 51, level: 40, lonc: 1, time: 744)
+Coordinates:
+  * latc        (latc) float64 26.37 26.38 26.4 26.42 ... 27.15 27.17 27.18 27.2
+  * level       (level) float64 1.0 2.0 3.0 4.0 5.0 ... 36.0 37.0 38.0 39.0 40.0
+  * lonc        (lonc) float64 56.38
+  * time        (time) datetime64[ns] 2011-01-01T01:00:00 ... 2011-02-01
+Data variables:
+    bathymetry  (latc, lonc) float32 nan 24.08 37.57 56.69 ... 5.575 5.575 nan
+    dxc         (latc, lonc) float32 1.662e+03 1.662e+03 ... 1.651e+03 1.65e+03
+    dyc         (latc, lonc) float32 1.856e+03 1.856e+03 ... 1.856e+03 1.856e+03
+    hn          (time, level, latc, lonc) float32 ...
+    rho         (time, level, latc, lonc) float32 ...
+    salt        (time, level, latc, lonc) float32 ...
+    temp        (time, level, latc, lonc) float32 ...
+    velx3d      (time, level, latc, lonc) float32 ...
+    vely3d      (time, level, latc, lonc) float32 ...
+    z           (time, latc, lonc) float32 nan -0.4051 -0.3902 ... -0.3599 nan
+Attributes:
+    title:    Persian Gulf
+    comment:  file created by the GOTM output_manager
+    history:  Thu Apr 15 14:30:13 2021: ncks -d time,1,-1 SoH_2_2011_01.nc4 S...
+    NCO:      netCDF Operators version 4.9.2 (Homepage = http://nco.sf.net, C...</pre><div class='xr-wrap' hidden><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-3a5639e8-2297-44ce-b883-34a56a978c77' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-3a5639e8-2297-44ce-b883-34a56a978c77' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span class='xr-has-index'>latc</span>: 51</li><li><span class='xr-has-index'>level</span>: 40</li><li><span class='xr-has-index'>lonc</span>: 1</li><li><span class='xr-has-index'>time</span>: 744</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-51511ff1-5221-4099-8b1a-5a7f11be6694' class='xr-section-summary-in' type='checkbox'  checked><label for='section-51511ff1-5221-4099-8b1a-5a7f11be6694' class='xr-section-summary' >Coordinates: <span>(4)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>latc</span></div><div class='xr-var-dims'>(latc)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>26.37 26.38 26.4 ... 27.18 27.2</div><input id='attrs-1aa3b551-0b1b-4e9b-9862-6f7a96858bf1' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-1aa3b551-0b1b-4e9b-9862-6f7a96858bf1' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-06e6e289-1b96-415b-afe0-5943912a8669' class='xr-var-data-in' type='checkbox'><label for='data-06e6e289-1b96-415b-afe0-5943912a8669' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>cell_methods :</span></dt><dd>time: point</dd></dl></div><div class='xr-var-data'><pre>array([26.366667, 26.383333, 26.4     , 26.416667, 26.433333, 26.45    ,
+       26.466667, 26.483333, 26.5     , 26.516667, 26.533333, 26.55    ,
+       26.566667, 26.583333, 26.6     , 26.616667, 26.633333, 26.65    ,
+       26.666667, 26.683333, 26.7     , 26.716667, 26.733333, 26.75    ,
+       26.766667, 26.783333, 26.8     , 26.816667, 26.833333, 26.85    ,
+       26.866667, 26.883333, 26.9     , 26.916667, 26.933333, 26.95    ,
+       26.966667, 26.983333, 27.      , 27.016667, 27.033333, 27.05    ,
+       27.066667, 27.083333, 27.1     , 27.116667, 27.133333, 27.15    ,
+       27.166667, 27.183333, 27.2     ])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>level</span></div><div class='xr-var-dims'>(level)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>1.0 2.0 3.0 4.0 ... 38.0 39.0 40.0</div><input id='attrs-b3b80be7-2132-4028-970a-da05a05137c6' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-b3b80be7-2132-4028-970a-da05a05137c6' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-8ca90d1a-877f-439f-86bf-0b91805ec280' class='xr-var-data-in' type='checkbox'><label for='data-8ca90d1a-877f-439f-86bf-0b91805ec280' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>level</dd><dt><span>long_name :</span></dt><dd>general vertical coordinates</dd><dt><span>cell_methods :</span></dt><dd>time: point</dd></dl></div><div class='xr-var-data'><pre>array([ 1.,  2.,  3.,  4.,  5.,  6.,  7.,  8.,  9., 10., 11., 12., 13., 14.,
+       15., 16., 17., 18., 19., 20., 21., 22., 23., 24., 25., 26., 27., 28.,
+       29., 30., 31., 32., 33., 34., 35., 36., 37., 38., 39., 40.])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>lonc</span></div><div class='xr-var-dims'>(lonc)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>56.38</div><input id='attrs-18cbcd98-542e-40cb-b9fa-9cb20593a381' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-18cbcd98-542e-40cb-b9fa-9cb20593a381' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-967140c4-9de6-4423-8311-9fab193a6dc7' class='xr-var-data-in' type='checkbox'><label for='data-967140c4-9de6-4423-8311-9fab193a6dc7' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>cell_methods :</span></dt><dd>time: point</dd></dl></div><div class='xr-var-data'><pre>array([56.383333])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>datetime64[ns]</div><div class='xr-var-preview xr-preview'>2011-01-01T01:00:00 ... 2011-02-01</div><input id='attrs-59281703-a781-44f5-8bbe-4aac8d85d5ec' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-59281703-a781-44f5-8bbe-4aac8d85d5ec' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-8edbb01d-997a-4526-b552-2bb285f5d6f8' class='xr-var-data-in' type='checkbox'><label for='data-8edbb01d-997a-4526-b552-2bb285f5d6f8' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>time</dd></dl></div><div class='xr-var-data'><pre>array([&#x27;2011-01-01T01:00:00.000000000&#x27;, &#x27;2011-01-01T02:00:00.000000000&#x27;,
+       &#x27;2011-01-01T03:00:00.000000000&#x27;, ..., &#x27;2011-01-31T22:00:00.000000000&#x27;,
+       &#x27;2011-01-31T23:00:00.000000000&#x27;, &#x27;2011-02-01T00:00:00.000000000&#x27;],
+      dtype=&#x27;datetime64[ns]&#x27;)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-a57322c1-fe99-4658-a565-affd42f57f16' class='xr-section-summary-in' type='checkbox'  checked><label for='section-a57322c1-fe99-4658-a565-affd42f57f16' class='xr-section-summary' >Data variables: <span>(10)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>bathymetry</span></div><div class='xr-var-dims'>(latc, lonc)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-9d75406a-dad6-46d3-84d4-e1291dd5bed3' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-9d75406a-dad6-46d3-84d4-e1291dd5bed3' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-3820e9e5-48c1-463d-b5b7-f4a91a53db24' class='xr-var-data-in' type='checkbox'><label for='data-3820e9e5-48c1-463d-b5b7-f4a91a53db24' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>m</dd><dt><span>long_name :</span></dt><dd>bathymetry</dd><dt><span>standard_name :</span></dt><dd>bathymetry</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>array([[       nan],
+       [ 24.079733],
+       [ 37.571114],
+       [ 56.690716],
+       [ 77.49219 ],
+       [ 95.565895],
+       [106.2867  ],
+       [108.11371 ],
+       [103.429054],
+       [ 96.35117 ],
+       [ 90.01556 ],
+       [ 85.41442 ],
+       [ 82.155014],
+       [ 79.689384],
+       [ 77.87563 ],
+       [ 76.74867 ],
+       [ 76.10883 ],
+       [ 75.443535],
+       [ 74.22573 ],
+       [ 72.28396 ],
+       [ 69.9084  ],
+       [ 67.61424 ],
+       [ 65.66103 ],
+       [ 63.630856],
+       [ 60.33593 ],
+       [ 54.441402],
+       [ 45.24067 ],
+       [ 33.204636],
+       [ 20.982443],
+       [       nan],
+       [       nan],
+       [       nan],
+       [ 12.984434],
+       [ 18.184217],
+       [ 22.190067],
+       [ 23.744555],
+       [ 23.470512],
+       [ 22.0471  ],
+       [ 20.068745],
+       [ 17.677797],
+       [ 14.95367 ],
+       [ 12.186256],
+       [  9.76757 ],
+       [  7.951079],
+       [  6.668653],
+       [  5.718798],
+       [  5.57527 ],
+       [  5.57527 ],
+       [  5.57527 ],
+       [  5.57527 ],
+       [       nan]], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>dxc</span></div><div class='xr-var-dims'>(latc, lonc)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-0ded5a1f-cd16-4cdf-93f2-ac30dc1d906c' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-0ded5a1f-cd16-4cdf-93f2-ac30dc1d906c' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-56f16e80-56bb-4d86-a337-8e5424dd1ff8' class='xr-var-data-in' type='checkbox'><label for='data-56f16e80-56bb-4d86-a337-8e5424dd1ff8' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>m</dd><dt><span>long_name :</span></dt><dd>dx at T-points</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>array([[1662.4927],
+       [1662.2529],
+       [1662.013 ],
+       [1661.773 ],
+       [1661.5327],
+       [1661.2924],
+       [1661.0519],
+       [1660.8113],
+       [1660.5704],
+       [1660.3296],
+       [1660.0885],
+       [1659.8474],
+       [1659.6061],
+       [1659.3645],
+       [1659.1229],
+       [1658.8812],
+       [1658.6393],
+       [1658.3973],
+       [1658.1552],
+       [1657.9128],
+       [1657.6704],
+       [1657.4277],
+       [1657.185 ],
+       [1656.9421],
+       [1656.6992],
+       [1656.456 ],
+       [1656.2128],
+       [1655.9692],
+       [1655.7257],
+       [1655.482 ],
+       [1655.2382],
+       [1654.9941],
+       [1654.75  ],
+       [1654.5057],
+       [1654.2614],
+       [1654.0168],
+       [1653.7721],
+       [1653.5272],
+       [1653.2823],
+       [1653.0372],
+       [1652.792 ],
+       [1652.5465],
+       [1652.301 ],
+       [1652.0553],
+       [1651.8096],
+       [1651.5636],
+       [1651.3175],
+       [1651.0713],
+       [1650.825 ],
+       [1650.5784],
+       [1650.3318]], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>dyc</span></div><div class='xr-var-dims'>(latc, lonc)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-70f6e244-79c1-435e-bc73-6e973cd2775b' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-70f6e244-79c1-435e-bc73-6e973cd2775b' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-b8b0526d-9642-46cf-9c13-862a3d826c9f' class='xr-var-data-in' type='checkbox'><label for='data-b8b0526d-9642-46cf-9c13-862a3d826c9f' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>m</dd><dt><span>long_name :</span></dt><dd>dy at T-points</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>array([[1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221],
+       [1855.5221]], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>hn</span></div><div class='xr-var-dims'>(time, level, latc, lonc)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-d3559995-bd83-486e-b8ee-1c22df5788f2' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-d3559995-bd83-486e-b8ee-1c22df5788f2' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-febd47d2-e041-4787-ad72-103da6ab9edc' class='xr-var-data-in' type='checkbox'><label for='data-febd47d2-e041-4787-ad72-103da6ab9edc' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>m</dd><dt><span>long_name :</span></dt><dd>layer thickness</dd><dt><span>standard_name :</span></dt><dd>cell_thickness</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>[1517760 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>rho</span></div><div class='xr-var-dims'>(time, level, latc, lonc)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-88c5117d-2da7-4f56-8481-1ccb60c5fdd3' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-88c5117d-2da7-4f56-8481-1ccb60c5fdd3' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-62b94c6b-29ad-4f04-ae46-a6f4cde71625' class='xr-var-data-in' type='checkbox'><label for='data-62b94c6b-29ad-4f04-ae46-a6f4cde71625' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>kg/m3</dd><dt><span>long_name :</span></dt><dd>density</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>[1517760 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>salt</span></div><div class='xr-var-dims'>(time, level, latc, lonc)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-9a613be3-9376-4ba8-9e55-55609735db2a' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-9a613be3-9376-4ba8-9e55-55609735db2a' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-dbcbcf86-04dd-4b9b-a3c2-78a50f91c062' class='xr-var-data-in' type='checkbox'><label for='data-dbcbcf86-04dd-4b9b-a3c2-78a50f91c062' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>1e-3</dd><dt><span>long_name :</span></dt><dd>salinity</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>[1517760 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>temp</span></div><div class='xr-var-dims'>(time, level, latc, lonc)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-13a9a06c-d490-4c38-9831-d38da7a42177' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-13a9a06c-d490-4c38-9831-d38da7a42177' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-9a97c786-8743-4ede-8944-7b67ec445123' class='xr-var-data-in' type='checkbox'><label for='data-9a97c786-8743-4ede-8944-7b67ec445123' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>Celsius</dd><dt><span>long_name :</span></dt><dd>temperature</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>[1517760 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>velx3d</span></div><div class='xr-var-dims'>(time, level, latc, lonc)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-aac78a57-2c22-4057-a7b0-ee632c1e21c4' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-aac78a57-2c22-4057-a7b0-ee632c1e21c4' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-b8713d90-55a8-450b-bd93-2857ed4144bd' class='xr-var-data-in' type='checkbox'><label for='data-b8713d90-55a8-450b-bd93-2857ed4144bd' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>m/s</dd><dt><span>long_name :</span></dt><dd>velocity in global x-direction (3D)</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>[1517760 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>vely3d</span></div><div class='xr-var-dims'>(time, level, latc, lonc)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-77a9be8e-1b36-40f9-93e4-e4979a9e39b3' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-77a9be8e-1b36-40f9-93e4-e4979a9e39b3' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-131fb967-3464-4bcc-948d-f8a22069dee2' class='xr-var-data-in' type='checkbox'><label for='data-131fb967-3464-4bcc-948d-f8a22069dee2' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>m/s</dd><dt><span>long_name :</span></dt><dd>velocity in global y-direction (3D)</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>[1517760 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>z</span></div><div class='xr-var-dims'>(time, latc, lonc)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-6bcc28ca-86e3-4d43-9fdd-2b60c4c1bdb8' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-6bcc28ca-86e3-4d43-9fdd-2b60c4c1bdb8' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-3ff7ddf8-ce15-45eb-b875-b9847cd268b2' class='xr-var-data-in' type='checkbox'><label for='data-3ff7ddf8-ce15-45eb-b875-b9847cd268b2' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>m</dd><dt><span>long_name :</span></dt><dd>sea surface elevation</dd><dt><span>standard_name :</span></dt><dd>sea surface elevation</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div><div class='xr-var-data'><pre>array([[[      nan],
+        [-0.405051],
+        ...,
+        [-0.324733],
+        [      nan]],
+
+       [[      nan],
+        [-0.239403],
+        ...,
+        [-0.012029],
+        [      nan]],
+
+       ...,
+
+       [[      nan],
+        [-0.200322],
+        ...,
+        [-0.197032],
+        [      nan]],
+
+       [[      nan],
+        [-0.303319],
+        ...,
+        [-0.359869],
+        [      nan]]], dtype=float32)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-1939ad0d-91de-475b-9872-e0df8f7244cf' class='xr-section-summary-in' type='checkbox'  checked><label for='section-1939ad0d-91de-475b-9872-e0df8f7244cf' class='xr-section-summary' >Attributes: <span>(4)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>title :</span></dt><dd>Persian Gulf</dd><dt><span>comment :</span></dt><dd>file created by the GOTM output_manager</dd><dt><span>history :</span></dt><dd>Thu Apr 15 14:30:13 2021: ncks -d time,1,-1 SoH_2_2011_01.nc4 SoH_2_2011_01.nc
+Sun Jan  6 13:54:52 2019 : ncmerge -H SoH_2.0190.nc SoH_2.0213.nc SoH_2.0233.nc SoH_2.nc</dd><dt><span>NCO :</span></dt><dd>netCDF Operators version 4.9.2 (Homepage = http://nco.sf.net, Code = http://github.com/nco/nco)</dd></dl></div></li></ul></div></div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To get an overview about the model domain, we first plot the SST during summer.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ds_2d</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;https://thredds-iow.io-warnemuende.de/thredds/dodsC/Persian_Gulf/IOW-THREDDS-Persian_Gulf_PG_SST_reynolds_2020-11-11-11.nc&quot;</span><span class="p">,</span>
+<span class="n">decode_times</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ds_2d</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">temp_summer_mod</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;matplotlib.collections.QuadMesh at 0x7f0c267248b0&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tef</span> <span class="o">=</span> <span class="n">TEF_object</span><span class="p">(</span><span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="p">)</span>
 </pre></div>
 
     </div>
