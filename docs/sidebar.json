@@ -3,6 +3,7 @@
     "Overview": "/",
     "TEF core framework": "tef_core.html",
     "Example 1": "example_persian_gulf.html",
-    "Example 2": "example_analytical.html"
+    "Example 2": "example_analytical.html",
+    "TEF calculations": "calc.html"
   }
 }

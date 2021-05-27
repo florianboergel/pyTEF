@@ -18,6 +18,9 @@ entries:
     - output: web,pdf
       title: Example 2
       url: example_analytical.html
+    - output: web,pdf
+      title: TEF calculations
+      url: calc.html
     output: web
     title: TotalExchangeFlow
   output: web
