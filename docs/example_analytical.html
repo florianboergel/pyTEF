@@ -341,25 +341,25 @@ Note that one must not average Q, but only q and then compute from the mean q th
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">q_mean</span> <span class="o">=</span> <span class="n">out_volume</span><span class="o">.</span><span class="n">q</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
-<span class="n">Delta_S</span><span class="o">=</span><span class="n">out_volume</span><span class="o">.</span><span class="n">var_q</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">out_volume</span><span class="o">.</span><span class="n">var_q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&#39;&#39;&#39;q_mean = out_volume.q.mean(&#39;time&#39;)</span>
+<span class="sd">Delta_S=out_volume.var_q[1]-out_volume.var_q[0]</span>
 
-<span class="c1">#TODO make this a function of the class! Maybe Q aus der sort Function rausnehmen</span>
-<span class="n">Q_mean</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">q_mean</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,))</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">q_mean</span><span class="p">)):</span>
-    <span class="n">Q_mean</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">q_mean</span><span class="p">[</span><span class="n">i</span><span class="p">:])</span><span class="o">*</span><span class="n">Delta_S</span>
+<span class="sd">#TODO make this a function of the class! Maybe Q aus der sort Function rausnehmen</span>
+<span class="sd">Q_mean=np.zeros((len(q_mean)+1,))</span>
+<span class="sd">for i in range(len(q_mean)):</span>
+<span class="sd">    Q_mean[i]=np.sum(q_mean[i:])*Delta_S</span>
 
-<span class="n">bulk_values_volume</span> <span class="o">=</span> <span class="n">tef</span><span class="o">.</span><span class="n">calc_bulk_values</span><span class="p">(</span><span class="n">out_volume</span><span class="o">.</span><span class="n">var_Q</span><span class="p">,</span> <span class="n">Q_mean</span><span class="p">)</span>
-<span class="n">bulk_values_salt</span> <span class="o">=</span> <span class="n">tef</span><span class="o">.</span><span class="n">calc_bulk_values</span><span class="p">(</span><span class="n">out_salt</span><span class="o">.</span><span class="n">var_Q</span><span class="p">,</span> <span class="n">Qs_mean</span><span class="p">)</span>
+<span class="sd">bulk_values_volume = tef.calc_bulk_values(out_volume.var_Q, Q_mean)</span>
+<span class="sd">bulk_values_salt = tef.calc_bulk_values(out_salt.var_Q, Qs_mean)</span>
 
-<span class="n">Q_in_num</span> <span class="o">=</span> <span class="n">bulk_values_volume</span><span class="o">.</span><span class="n">Qin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">Q_out_num</span> <span class="o">=</span> <span class="n">bulk_values_volume</span><span class="o">.</span><span class="n">Qout</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="sd">Q_in_num = bulk_values_volume.Qin[0].values</span>
+<span class="sd">Q_out_num = bulk_values_volume.Qout[0].values</span>
 
-<span class="n">Qs_in_num</span> <span class="o">=</span> <span class="n">bulk_values_salt</span><span class="o">.</span><span class="n">Qin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">Qs_out_num</span> <span class="o">=</span> <span class="n">bulk_values_salt</span><span class="o">.</span><span class="n">Qout</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="sd">Qs_in_num = bulk_values_salt.Qin[0].values</span>
+<span class="sd">Qs_out_num = bulk_values_salt.Qout[0].values</span>
 
-<span class="n">s_in_num</span>  <span class="o">=</span> <span class="n">Qs_in_num</span> <span class="o">/</span> <span class="n">Q_in_num</span>
-<span class="n">s_out_num</span> <span class="o">=</span> <span class="n">Qs_out_num</span> <span class="o">/</span> <span class="n">Q_out_num</span>
+<span class="sd">s_in_num  = Qs_in_num / Q_in_num</span>
+<span class="sd">s_out_num = Qs_out_num / Q_out_num&#39;&#39;&#39;</span>
 </pre></div>
 
     </div>
@@ -383,35 +383,35 @@ Note that one must not average Q, but only q and then compute from the mean q th
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s_div</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="o">-</span><span class="n">s_a</span><span class="o">*</span><span class="n">u_r</span><span class="o">/</span><span class="n">u_a</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span><span class="o">+</span><span class="n">s_r</span><span class="p">)</span> <span class="c1">#dividing salinity</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&#39;&#39;&#39;s_div=np.float64(-s_a*u_r/u_a/np.cos(phi)+s_r) #dividing salinity</span>
 
-<span class="n">Q_in_ana</span>  <span class="o">=</span> <span class="n">Q_analytical</span><span class="p">(</span><span class="n">s_div</span><span class="p">)</span>
-<span class="n">Q_out_ana</span> <span class="o">=</span> <span class="n">Q_analytical</span><span class="p">(</span><span class="mf">10.</span><span class="p">)</span> <span class="o">-</span> <span class="n">Q_in_ana</span>
+<span class="sd">Q_in_ana  = Q_analytical(s_div)</span>
+<span class="sd">Q_out_ana = Q_analytical(10.) - Q_in_ana</span>
 
-<span class="n">Qs_in_ana</span> <span class="o">=</span> <span class="n">Qs_analytical</span><span class="p">(</span><span class="n">s_div</span><span class="p">)</span>
-<span class="n">Qs_out_ana</span><span class="o">=</span> <span class="n">Qs_analytical</span><span class="p">(</span><span class="mf">10.</span><span class="p">)</span> <span class="o">-</span> <span class="n">Qs_in_ana</span>
+<span class="sd">Qs_in_ana = Qs_analytical(s_div)</span>
+<span class="sd">Qs_out_ana= Qs_analytical(10.) - Qs_in_ana</span>
 
-<span class="n">s_in_ana</span>  <span class="o">=</span> <span class="n">Qs_in_ana</span> <span class="o">/</span> <span class="n">Q_in_ana</span>
-<span class="n">s_out_ana</span> <span class="o">=</span> <span class="n">Qs_out_ana</span> <span class="o">/</span> <span class="n">Q_out_ana</span>
+<span class="sd">s_in_ana  = Qs_in_ana / Q_in_ana</span>
+<span class="sd">s_out_ana = Qs_out_ana / Q_out_ana</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Q_in: analytical </span><span class="si">{}</span><span class="s1">, numerical </span><span class="si">{}</span><span class="s1">, relative error </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Q_in_ana</span><span class="p">,</span><span class="n">Q_in_num</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">Q_in_num</span><span class="o">-</span><span class="n">Q_in_ana</span><span class="p">)</span><span class="o">/</span><span class="n">Q_in_ana</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Q_out: analytical </span><span class="si">{}</span><span class="s1">, numerical </span><span class="si">{}</span><span class="s1">, relative error </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Q_out_ana</span><span class="p">,</span><span class="n">Q_out_num</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">Q_out_num</span><span class="o">-</span><span class="n">Q_out_ana</span><span class="p">)</span><span class="o">/</span><span class="n">Q_out_ana</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;s_in: analytical </span><span class="si">{}</span><span class="s1">, numerical </span><span class="si">{}</span><span class="s1">, relative error </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s_in_ana</span><span class="p">,</span><span class="n">s_in_num</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">s_in_num</span><span class="o">-</span><span class="n">s_in_ana</span><span class="p">)</span><span class="o">/</span><span class="n">s_in_ana</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;s_out: analytical </span><span class="si">{}</span><span class="s1">, numerical </span><span class="si">{}</span><span class="s1">, relative error </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s_out_ana</span><span class="p">,</span><span class="n">s_out_num</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">s_out_num</span><span class="o">-</span><span class="n">s_out_ana</span><span class="p">)</span><span class="o">/</span><span class="n">s_out_ana</span><span class="p">)))</span>
+<span class="sd">print(&#39;Q_in: analytical {}, numerical {}, relative error {}&#39;.format(Q_in_ana,Q_in_num,np.abs((Q_in_num-Q_in_ana)/Q_in_ana)))</span>
+<span class="sd">print(&#39;Q_out: analytical {}, numerical {}, relative error {}&#39;.format(Q_out_ana,Q_out_num,np.abs((Q_out_num-Q_out_ana)/Q_out_ana)))</span>
+<span class="sd">print(&#39;s_in: analytical {}, numerical {}, relative error {}&#39;.format(s_in_ana,s_in_num,np.abs((s_in_num-s_in_ana)/s_in_ana)))</span>
+<span class="sd">print(&#39;s_out: analytical {}, numerical {}, relative error {}&#39;.format(s_out_ana,s_out_num,np.abs((s_out_num-s_out_ana)/s_out_ana)))</span>
 
-<span class="n">fig</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Q_mean</span><span class="p">,</span><span class="n">out_volume</span><span class="o">.</span><span class="n">var_Q</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;numerical Q&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">q_mean</span><span class="p">,</span><span class="n">out_volume</span><span class="o">.</span><span class="n">var_q</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;numerical q&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower left&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Salinity / g/kg&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Q / m$^3$ s$^{-1}$ | q / m$^3$ s$^{-1}$ (g/kg)$^{-1}$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Q_analytical</span><span class="p">(</span><span class="n">out_volume</span><span class="o">.</span><span class="n">var_Q</span><span class="p">),</span><span class="n">out_volume</span><span class="o">.</span><span class="n">var_Q</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;analytical Q&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">q_analytical</span><span class="p">(</span><span class="n">out_volume</span><span class="o">.</span><span class="n">var_q</span><span class="p">),</span><span class="n">out_volume</span><span class="o">.</span><span class="n">var_q</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;analytical q&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower left&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Q / m$^3$ s$^{-1}$ | q / m$^3$ s$^{-1}$ (g/kg)$^{-1}$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="sd">fig,ax=plt.subplots(1,2,sharex=True,sharey=True)</span>
+<span class="sd">ax[0].plot(Q_mean,out_volume.var_Q,color=&#39;blue&#39;,label=&#39;numerical Q&#39;)</span>
+<span class="sd">ax[0].plot(q_mean,out_volume.var_q,color=&#39;red&#39;,label=&#39;numerical q&#39;)</span>
+<span class="sd">ax[0].legend(loc=&#39;lower left&#39;)</span>
+<span class="sd">ax[0].set_ylabel(&#39;Salinity / g/kg&#39;)</span>
+<span class="sd">ax[0].set_xlabel(&#39;Q / m$^3$ s$^{-1}$ | q / m$^3$ s$^{-1}$ (g/kg)$^{-1}$&#39;)</span>
+<span class="sd">ax[1].plot(Q_analytical(out_volume.var_Q),out_volume.var_Q,color=&#39;blue&#39;,label=&#39;analytical Q&#39;)</span>
+<span class="sd">ax[1].plot(q_analytical(out_volume.var_q),out_volume.var_q,color=&#39;red&#39;,label=&#39;analytical q&#39;)</span>
+<span class="sd">ax[1].legend(loc=&#39;lower left&#39;)</span>
+<span class="sd">ax[1].set_xlim(-1000,1000)</span>
+<span class="sd">ax[1].set_ylim(30,10)</span>
+<span class="sd">ax[1].set_xlabel(&#39;Q / m$^3$ s$^{-1}$ | q / m$^3$ s$^{-1}$ (g/kg)$^{-1}$&#39;)</span>
+<span class="sd">plt.show()&#39;&#39;&#39;</span>
 </pre></div>
 
     </div>
