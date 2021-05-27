@@ -4,7 +4,11 @@
 
 ## Installing
 
-`pip install TotalExchangeFlow`
+To install use
+
+`git clone https://github.com/florianboergel/TotalExchangeFlow.git` and then 
+
+`pip install -e TotalExchangeFlow`
 
 ## How to use
 
