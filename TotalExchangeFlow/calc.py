@@ -12,13 +12,16 @@ logger = logging.getLogger(__name__)
 
 # Cell
 def calc_volume_transport(self, vel, height, delta):
-        self.volume_transport = vel*height*delta
+    """Calculates volume transport"""
+    self.volume_transport = vel*height*delta
 
 def calc_salt_transport(self, salt, vel, height, delta):
-        self.salt_transport = salt*vel*height*delta
+    """Calculates salt transport"""
+    self.salt_transport = salt*vel*height*delta
 
 # Cell
 def sort_1dim(self, sort_by_variable = None, transport = None, N = None, minmaxrange = None):
+    """Performs coordinate transformation by given variable."""
     if sort_by_variable is None:
         raise ValueError("Please define a variable that you want to sort by.")
     if transport is None:
@@ -83,12 +86,12 @@ def sort_1dim(self, sort_by_variable = None, transport = None, N = None, minmaxr
                                              self._get_name_latitude(),
                                              self._get_name_longitude()],dtype=np.float64) / delta_var
     end= time.time()
-    print('time for np.where.sum(): {}s'.format(end-start))
+    logger.info('time for q computation: {}s'.format(end-start))
 
     start=time.time()
     out_Q = np.append(np.cumsum(out_q[:,::-1],axis=1)[:,::-1],np.zeros((self.timesteps,1)),axis=1)*delta_var
     end=time.time()
-    print('time for Q cumsum computation: {}s'.format(end-start))
+    logger.info('time for Q computation: {}s'.format(end-start))
 
     out = xr.Dataset({
     "q": (["time", "var_q"], out_q),
@@ -204,66 +207,32 @@ def sort_2dim(self, sort_by_variable = None,
         idx = xr.apply_ufunc(np.digitize, sort_by_variable, var_Q)
         idy = xr.apply_ufunc(np.digitize, sort_by_variable2, var_Q2)
 
+        out_q = np.zeros((self.timesteps,N, N))
+
+        for i in range(N):
+            for j in range(N):
+                #print(self._get_name_depth(),self._get_name_latitude(),self._get_name_longitude())
+                out_q[:, i, j] = transport.where((idx == i) & (idy == j)).sum([self._get_name_depth(),
+                                                                          self._get_name_latitude(),
+                                                                          self._get_name_longitude()],dtype=np.float64) / delta_var / delta_var2
+
+        out_Q = np.zeros((self.timesteps, N+1, N+1))
+
+        for i in range(N):
+            for j in range(N):
+                out_Q[:, i, j] = np.sum(out_q[:, i:, j:] * delta_var * delta_var2, axis=(1,2))
 
 
-        if len(transport.time.shape)==0:
-            #TODO have a better check for time axis
-            logger.info('No time axis')
-
-            out_q = np.zeros((N, N))
-
-            for i in range(N):
-                for j in range(N):
-                    out_q[i, j] = transport.where((idx == i) & (idy == j)).sum([self._get_name_depth(),
-                                                                              self._get_name_latitude(),
-                                                                              self._get_name_longitude()],dtype=np.float64) / delta_var / delta_var2
-
-            out_Q = np.zeros((N+1, N+1))
-
-            for i in range(N):
-                for j in range(N):
-                    out_Q[i, j] = np.sum(out_q[i:, j:] * delta_var * delta_var2)
-
-
-            out = xr.Dataset({
-            "q2": (["var_q", "var_q2"], out_q),
-            "Q2": (["var_Q", "var_Q2"], out_Q)},
-            coords={
-                "var_q": (["var_q"],var_q),
-                "var_q2": (["var_q2"], var_q2),
-                "var_Q": (["var_Q"], var_Q),
-                "var_Q2": (["var_Q2"], var_Q2),
-            })
-
-        else:
-            logger.info('Time axis exists, will be kept')
-
-            out_q = np.zeros((self.timesteps,N, N))
-
-            for i in range(N):
-                for j in range(N):
-                    #print(self._get_name_depth(),self._get_name_latitude(),self._get_name_longitude())
-                    out_q[:, i, j] = transport.where((idx == i) & (idy == j)).sum([self._get_name_depth(),
-                                                                              self._get_name_latitude(),
-                                                                              self._get_name_longitude()],dtype=np.float64) / delta_var / delta_var2
-
-            out_Q = np.zeros((self.timesteps, N+1, N+1))
-
-            for i in range(N):
-                for j in range(N):
-                    out_Q[:, i, j] = np.sum(out_q[:, i:, j:] * delta_var * delta_var2)
-
-
-            out = xr.Dataset({
-            "q2": (["time", "var_q", "var_q2"], out_q),
-            "Q2": (["time", "var_Q", "var_Q2"], out_Q)},
-            coords={
-                "time": (["time"], self.ds[self._get_name_time()]),
-                "var_q": (["var_q"],var_q),
-                "var_q2": (["var_q2"], var_q2),
-                "var_Q": (["var_Q"], var_Q),
-                "var_Q2": (["var_Q2"], var_Q2),
-            })
+        out = xr.Dataset({
+        "q2": (["time", "var_q", "var_q2"], out_q),
+        "Q2": (["time", "var_Q", "var_Q2"], out_Q)},
+        coords={
+            "time": (["time"], self.ds[self._get_name_time()]),
+            "var_q": (["var_q"],var_q),
+            "var_q2": (["var_q2"], var_q2),
+            "var_Q": (["var_Q"], var_Q),
+            "var_Q2": (["var_Q2"], var_Q2),
+        })
 
         return out
 
