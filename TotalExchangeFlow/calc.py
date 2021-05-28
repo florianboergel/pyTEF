@@ -72,55 +72,33 @@ def sort_1dim(self, sort_by_variable = None, transport = None, N = None, minmaxr
     # Changelog: 27.05.2021: Change var_Q to var_q
     idx = xr.apply_ufunc(np.digitize, sort_by_variable, var_q)
 
-    if len(transport.time.shape)==0:
-    #TODO Can be deleted since we add dummy dimensions, right?
-        logger.info('No time axis')
-        out_q = np.zeros((N,),dtype=np.float64)
+    out_q = np.zeros((self.timesteps,N))
+    out_q2 = np.zeros((self.timesteps,N))
 
-        for i in range(N):
+    import time
+    start = time.time()
+    for i in range(N):
 
-            out_q[i] = transport.where(idx == i).sum([self._get_name_depth(),
-                                                 self._get_name_latitude(),
-                                                 self._get_name_longitude()],dtype=np.float64)/ delta_var
+        out_q[:, i] = transport.where(idx == i).sum([self._get_name_depth(),
+                                             self._get_name_latitude(),
+                                             self._get_name_longitude()],dtype=np.float64) / delta_var
+    end= time.time()
+    print('time for np.where.sum(): {}s'.format(end-start))
 
-        out_Q = np.zeros((N+1,),dtype=np.float64)
+    start=time.time()
+    out_Q = np.append(np.cumsum(out_q[:,::-1],axis=1)[:,::-1],np.zeros((self.timesteps,1)),axis=1)*delta_var
+    end=time.time()
+    print('time for Q cumsum computation: {}s'.format(end-start))
 
-        for i in range(N):
-            out_Q[i] = np.sum(out_q[i:] * delta_var)
-
-
-        out = xr.Dataset({
-        "q": (["var_q"], out_q),
-        "Q": (["var_Q"], out_Q)},
-        coords={
-            "var_q": (["var_q"],var_q),
-            "var_Q": (["var_Q"], var_Q),
-        })
-
-
-    else:
-        logger.info('Time axis exists, will be kept')
-        out_q = np.zeros((self.timesteps,N))
-
-        for i in range(N):
-            out_q[:, i] = transport.where(idx == i).sum([self._get_name_depth(),
-                                                 self._get_name_latitude(),
-                                                 self._get_name_longitude()],dtype=np.float64) / delta_var
-
-        out_Q = np.zeros((self.timesteps, N+1))
-
-        for i in range(N):
-            out_Q[:, i] = np.sum(out_q[:, i:] * delta_var)
-
-
-        out = xr.Dataset({
-        "q": (["time", "var_q"], out_q),
-        "Q": (["time", "var_Q"], out_Q)},
-        coords={
-            "time": (["time"], self.ds[self._get_name_time()]),
-            "var_q": (["var_q"],var_q),
-            "var_Q": (["var_Q"], var_Q),
-        })
+    out = xr.Dataset({
+    "q": (["time", "var_q"], out_q),
+    "q2": (["time", "var_q"], out_q2),
+    "Q": (["time", "var_Q"], out_Q)},
+    coords={
+        "time": (["time"], self.ds[self._get_name_time()]),
+        "var_q": (["var_q"],var_q),
+        "var_Q": (["var_Q"], var_Q),
+    })
 
     return out
 
@@ -360,7 +338,7 @@ def calc_bulk_values(self,
 
     else:
         #no time axis
-        ind,minmax = self._find_extrema(Q,Q_thresh)
+        ind,minmax = _find_extrema(Q,Q_thresh)
         div_val=[]
         i=0
         while i < len(ind):
@@ -399,7 +377,7 @@ def calc_bulk_values(self,
     return(out)
 
 # Cell
-def _find_extrema(self,x,min_transport):
+def _find_extrema(x,min_transport):
     """
     internal function called by calc_bulk values to find the extrema in the transport function x
     and label them correctly
