@@ -242,25 +242,32 @@ def calc_bulk_values(self,
                      coord,
                      Q,
                      Q_thresh=None,
+                     index=None,
                      **kwargs):
 
     coord_min=coord[0]
     delta_var=coord[1]-coord[0]
 
-    if Q_thresh is None:
-        #set a default thresh
-        Q_thresh=0.01*np.max(np.abs(Q))
-
     if len(Q.shape) > 1:
+
         #first dimension is time! -> keep this dimension!
         #prepare storage arrays for Qin, Qout, consider multiple inflow/outflows!
 
         Qin_ar = np.zeros((Q.shape[0],10)) #10 is the dummy length
         Qout_ar = np.zeros((Q.shape[0],10))
         divval_ar = np.zeros((Q.shape[0],11)) #if there are 10 transports there would be 11 dividing salinities
+        indices = np.zeros((Q.shape[0],11))
 
         for t in np.arange(Q.shape[0]):
-            ind,minmax = self._find_extrema(Q[t],Q_thresh)
+
+            if Q_thresh is None:
+                #set a default thresh
+                Q_thresh=0.01*np.max(np.abs(Q[t]))
+            if index is None:
+                ind,minmax = _find_extrema(Q[t],Q_thresh)
+            else:
+                ind=np.copy(index[t])
+                ind=ind[ind!=0]
 
             div_val=[]
             i=0
@@ -270,26 +277,29 @@ def calc_bulk_values(self,
                 #calculate transports etc.
             Q_in_m=[]
             Q_out_m=[]
-            index=[]
+            index_del=[]
             i=0
             for i in range(len(ind)-1):
-                Q_i=-(Q[ind[i+1]]-Q[ind[i]])
+                Q_i=-(Q[t,ind[i+1]]-Q[t,ind[i]])
                 if Q_i<0:
                     Q_out_m.append(Q_i)
                 elif Q_i > 0:
                     Q_in_m.append(Q_i)
                 else:
-                    index.append(i)
+                    index_del.append(i)
                 i+=1
-            div_val = np.delete(div_val, index)
+            div_val = np.delete(div_val, index_del)
+            ind = np.delete(ind, index_del)
 
             #storing results
             for i,qq in enumerate(Q_in_m):
                 Qin_ar[t,i] = qq
             for i,qq in enumerate(Q_out_m):
                 Qout_ar[t,i] = qq
-            for i,ss in enumerate(div_sal):
+            for i,ss in enumerate(div_val):
                 divval_ar[t,i] = ss
+            for i,ss in enumerate(ind):
+                indices[t,i] = ss
 
         #create a xarray Dataset for the results
         out = xr.Dataset(
@@ -297,18 +307,26 @@ def calc_bulk_values(self,
             "Qin": (["time", "m"], np.array(Qin_ar)),
             "Qout": (["time", "n"], np.array(Qout_ar)),
             "divval": (["time", "o"], np.array(divval_ar)),
+            "index": (["time","o"], np.array(indices).astype(int)),
         },
         coords={
             "time": (["time"],self.ds[self._get_name_time()]),
-            "m": (["m"],np.arange(len(Qin_ar))),
-            "n": (["n"],np.arange(len(Qout_ar))),
-            "o": (["o"],np.arange(len(divval_ar))),
+            "m": (["m"],np.arange(Qin_ar.shape[1])),
+            "n": (["n"],np.arange(Qout_ar.shape[1])),
+            "o": (["o"],np.arange(divval_ar.shape[1])),
         },
         )
 
     else:
         #no time axis
-        ind,minmax = _find_extrema(Q,Q_thresh)
+        if Q_thresh is None:
+        #set a default thresh
+            Q_thresh=0.01*np.max(np.abs(Q))
+
+        if index is None:
+            ind,minmax = _find_extrema(Q,Q_thresh)
+        else:
+            ind=np.copy(index)
         div_val=[]
         i=0
         while i < len(ind):
@@ -319,7 +337,7 @@ def calc_bulk_values(self,
             #calculate transports etc.
         Q_in_m=[]
         Q_out_m=[]
-        index=[]
+        index_del=[]
         i=0
         for i in range(len(ind)-1):
             Q_i=-(Q[ind[i+1]]-Q[ind[i]])
@@ -328,15 +346,17 @@ def calc_bulk_values(self,
             elif Q_i > 0:
                 Q_in_m.append(Q_i)
             else:
-                index.append(i)
+                index_del.append(i)
             i+=1
-        div_val = np.delete(div_val, index)
+        div_val = np.delete(div_val, index_del)
+        ind = np.delete(ind, index_del)
 
         out = xr.Dataset(
         {
             "Qin": (["m"], np.array(Q_in_m)),
             "Qout": (["n"], np.array(Q_out_m)),
             "divval": (["o"], np.array(div_val)),
+            "index": (["o"], np.array(ind)),
         },
         coords={
             "m": (["m"],np.arange(len(Q_in_m))),
@@ -354,7 +374,7 @@ def _find_extrema(x,min_transport):
     x: Q(S)
     min_transport: Q_thresh
     """
-    if np.count_nonzero(x)==0:
+    if np.count_nonzero(x)==0 or np.isnan(x).all():
         indices=[0]
         minmax=[0]
         return(indices,minmax)
