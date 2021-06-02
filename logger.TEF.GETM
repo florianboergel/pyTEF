@@ -1,0 +1,26 @@
+2021-05-28 14:18:57,293 WARNING  
+ 'longitude' dimension (unit='degrees_east') not found.
+2021-05-28 14:18:57,294 WARNING  
+ 'latitude' dimension (unit='degrees_north') not found.
+2021-05-28 14:18:57,294 WARNING  
+ 'depth not found
+2021-05-28 14:18:57,303 INFO     Constructing var_q and var_Q
+2021-05-28 14:18:57,305 WARNING  
+Dimensions should be equal to 3, but they are not.
+You want ... 
+2021-05-28 14:18:57,305 WARNING  
+Dimensions should be equal to 3, but they are not.
+You want ... 
+2021-05-28 14:18:59,756 WARNING  
+Dimensions should be equal to 3, but they are not.
+You want ... 
+2021-05-28 14:18:59,817 INFO     Constructing var_q and var_Q
+2021-05-28 14:18:59,818 WARNING  
+Dimensions should be equal to 3, but they are not.
+You want ... 
+2021-05-28 14:18:59,819 WARNING  
+Dimensions should be equal to 3, but they are not.
+You want ... 
+2021-05-28 14:19:02,930 WARNING  
+Dimensions should be equal to 3, but they are not.
+You want ... 

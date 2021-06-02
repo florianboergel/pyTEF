@@ -12,13 +12,16 @@ logger = logging.getLogger(__name__)
 
 # Cell
 def calc_volume_transport(self, vel, height, delta):
-        self.volume_transport = vel*height*delta
+    """Calculates volume transport"""
+    self.volume_transport = vel*height*delta
 
 def calc_salt_transport(self, salt, vel, height, delta):
-        self.salt_transport = salt*vel*height*delta
+    """Calculates salt transport"""
+    self.salt_transport = salt*vel*height*delta
 
 # Cell
 def sort_1dim(self, sort_by_variable = None, transport = None, N = None, minmaxrange = None):
+    """Performs coordinate transformation by given variable."""
     if sort_by_variable is None:
         raise ValueError("Please define a variable that you want to sort by.")
     if transport is None:
@@ -208,12 +211,7 @@ def sort_2dim(self, sort_by_variable = None,
 
         import time
         start=time.time()
-        for i in range(N):
-            for j in range(N):
-                #print(self._get_name_depth(),self._get_name_latitude(),self._get_name_longitude())
-                out_q[:, i, j] = transport.where((idx == i) & (idy == j)).sum([self._get_name_depth(),
-                                                                          self._get_name_latitude(),
-                                                                          self._get_name_longitude()],dtype=np.float64) / delta_var / delta_var2
+
         end= time.time()
         logger.info('time for 2d q computation: {}s'.format(end-start))
 
@@ -223,6 +221,13 @@ def sort_2dim(self, sort_by_variable = None,
         out_Q[:,:-1,:-1] = out_Q_tmp
         end= time.time()
         logger.info('time for new 2d Q computation: {}s'.format(end-start))
+
+        out_Q = np.zeros((self.timesteps, N+1, N+1))
+
+        for i in range(N):
+            for j in range(N):
+                out_Q[:, i, j] = np.sum(out_q[:, i:, j:] * delta_var * delta_var2, axis=(1,2))
+
 
         out = xr.Dataset({
         "q2": (["time", "var_q", "var_q2"], out_q),
