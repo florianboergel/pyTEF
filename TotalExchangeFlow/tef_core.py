@@ -133,6 +133,7 @@ class TEF_object():
             if self._time_name is None:
                 self.ds = self.ds.expand_dims("time")
                 self._time_name = "time"
+                print("Created dummy dimension for time")
         else:
             self._time_name = time_name
 
@@ -160,7 +161,7 @@ class TEF_object():
                 var = self.ds[dim].data[0]
             except IndexError:
                 var = self.ds[dim].data
-            if isinstance(var, "datetime64"):
+            if isinstance(var, np.datetime64):
                 return dim
         # no 'time' dimension found
         logger.warning(

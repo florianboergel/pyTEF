@@ -6,6 +6,7 @@ __all__ = ['logger', 'calc_volume_transport', 'calc_salt_transport', 'sort_1dim'
 import math
 import numpy as np
 import xarray as xr
+from tqdm import tqdm
 import logging
 
 logger = logging.getLogger(__name__)
@@ -22,6 +23,8 @@ def calc_salt_transport(self, salt, vel, height, delta):
 # Cell
 def sort_1dim(self, sort_by_variable = None, transport = None, N = None, minmaxrange = None):
     """Performs coordinate transformation by given variable."""
+    #TODO: remove q2 after testing
+    #Explain range of var_q and var_Q with figure of lorenz et al (2019)
     if sort_by_variable is None:
         raise ValueError("Please define a variable that you want to sort by.")
     if transport is None:
@@ -76,12 +79,11 @@ def sort_1dim(self, sort_by_variable = None, transport = None, N = None, minmaxr
     idx = xr.apply_ufunc(np.digitize, sort_by_variable, var_q)
 
     out_q = np.zeros((self.timesteps,N))
-    out_q2 = np.zeros((self.timesteps,N))
+    #out_q2 = np.zeros((self.timesteps,N))
 
     import time
     start = time.time()
-    for i in range(N):
-
+    for i in tqdm(range(N)):
         out_q[:, i] = transport.where(idx == i).sum([self._get_name_depth(),
                                              self._get_name_latitude(),
                                              self._get_name_longitude()],dtype=np.float64) / delta_var
@@ -95,7 +97,7 @@ def sort_1dim(self, sort_by_variable = None, transport = None, N = None, minmaxr
 
     out = xr.Dataset({
     "q": (["time", "var_q"], out_q),
-    "q2": (["time", "var_q"], out_q2),
+    #"q2": (["time", "var_q"], out_q2),
     "Q": (["time", "var_Q"], out_Q)},
     coords={
         "time": (["time"], self.ds[self._get_name_time()]),
@@ -211,7 +213,7 @@ def sort_2dim(self, sort_by_variable = None,
 
         import time
         start=time.time()
-        for i in range(N):
+        for i in tqdm(range(N)):
             for j in range(N):
                 #print(self._get_name_depth(),self._get_name_latitude(),self._get_name_longitude())
                 out_q[:, i, j] = transport.where((idx == i) & (idy == j)).sum([self._get_name_depth(),
@@ -261,8 +263,7 @@ def calc_bulk_values(self,
         divval_ar = np.zeros((Q.shape[0],11)) #if there are 10 transports there would be 11 dividing salinities
         indices = np.zeros((Q.shape[0],11))
 
-        for t in np.arange(Q.shape[0]):
-
+        for t in tqdm(np.arange(Q.shape[0])):
             if Q_thresh is None:
                 #set a default thresh
                 Q_thresh=0.01*np.max(np.abs(Q[t]))
@@ -313,7 +314,7 @@ def calc_bulk_values(self,
             "index": (["time","o"], np.array(indices).astype(int)),
         },
         coords={
-            "time": (["time"],self.ds[self._get_name_time()]),
+            "time": (["time"], Q[self._get_name_time()]),
             "m": (["m"],np.arange(Qin_ar.shape[1])),
             "n": (["n"],np.arange(Qout_ar.shape[1])),
             "o": (["o"],np.arange(divval_ar.shape[1])),
@@ -342,7 +343,7 @@ def calc_bulk_values(self,
         Q_out_m=[]
         index_del=[]
         i=0
-        for i in range(len(ind)-1):
+        for i in tqdm(range(len(ind)-1)):
             Q_i=-(Q[ind[i+1]]-Q[ind[i]])
             if Q_i<0:
                 Q_out_m.append(Q_i)
