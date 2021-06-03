@@ -7,6 +7,7 @@ import math
 import numpy as np
 import xarray as xr
 import logging
+from tqdm import tqdm
 
 # Cell
 logging.basicConfig(level=logging.INFO,
