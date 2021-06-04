@@ -243,8 +243,17 @@ def sort_2dim(self, sort_by_variable = None,
                 varmax2 = minmaxrange2[-1]
 
         if N is None:
-            N = 1024
+            N1 = 1024
+            N2 = 1024
             logger.info("Setting N to default value of 1024")
+
+        if type(N) is tuple:
+            N1 = N[0]
+            N2 = N[1]
+
+        if type(N) is int:
+            N1 = N
+            N2 = N
 
         if type(minmaxrange) == "numpy.ndarray":
             logger.info('Using provided numpy array for variable 1')
@@ -260,11 +269,11 @@ def sort_2dim(self, sort_by_variable = None,
             var_Q = np.arange(var_q-0.5*delta_var, var_q[-1]+0.5*delta_var, delta_var)
         else:
             #constructing
-            delta_var = ((varmax-varmin)/N)
+            delta_var = ((varmax-varmin)/N1)
             var_q = np.linspace(varmin + 0.5*delta_var,
                                 varmax - 0.5*delta_var,
-                                N)
-            var_Q = np.linspace(varmin, varmax, N+1)
+                                N1)
+            var_Q = np.linspace(varmin, varmax, N1+1)
 
         if type(minmaxrange2) == "numpy.ndarray":
             logger.info('Using provided numpy array for variable 2')
@@ -280,22 +289,22 @@ def sort_2dim(self, sort_by_variable = None,
             var_Q2 = np.arange(var_q2-0.5*delta_var2, var_q2[-1]+0.5*delta_var2, delta_var2)
         else:
             #contructing
-            delta_var2 = ((varmax2-varmin2)/N)
+            delta_var2 = ((varmax2-varmin2)/N2)
             var_q2 = np.linspace(varmin2 + 0.5*delta_var2,
                                  varmax2 - 0.5*delta_var2,
-                                 N)
-            var_Q2 = np.linspace(varmin2, varmax2, N+1)
+                                 N2)
+            var_Q2 = np.linspace(varmin2, varmax2, N2+1)
 
         #sortingt
         idx = xr.apply_ufunc(np.digitize, sort_by_variable, var_Q)
         idy = xr.apply_ufunc(np.digitize, sort_by_variable2, var_Q2)
 
-        out_q = np.zeros((self.timesteps,N, N))
+        out_q = np.zeros((self.timesteps,N1, N2))
 
         import time
         start=time.time()
-        for i in tqdm(range(N)):
-            for j in range(N):
+        for i in tqdm(range(N1)):
+            for j in range(N2):
                 #print(self._get_name_depth(),self._get_name_latitude(),self._get_name_longitude())
                 out_q[:, i, j] = transport.where((idx == i) & (idy == j)).sum([self._get_name_depth(),
                                                                           self._get_name_latitude(),
@@ -304,7 +313,7 @@ def sort_2dim(self, sort_by_variable = None,
         logger.info('time for 2d q computation: {}s'.format(end-start))
 
         start=time.time()
-        out_Q = np.zeros((self.timesteps, N+1, N+1))
+        out_Q = np.zeros((self.timesteps, N1+1, N2+1))
         out_Q_tmp = np.cumsum(np.cumsum(out_q[:,::-1,::-1],axis=1),axis=2)[:,::-1,::-1]*delta_var2*delta_var
         out_Q[:,:-1,:-1] = out_Q_tmp
         end= time.time()
