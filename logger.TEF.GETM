@@ -1,0 +1,46 @@
+2021-06-04 11:43:00,701 INFO     Constructing var_q and var_Q
+2021-06-04 11:43:00,730 WARNING  
+Dimensions should be equal to 3, but they are not.
+You want ... 
+2021-06-04 11:43:01,357 INFO     time for q computation: 0.6258969306945801s
+2021-06-04 11:43:01,357 WARNING  
+Dimensions should be equal to 3, but they are not.
+You want ... 
+2021-06-04 11:43:01,358 INFO     time for Q computation: 0.0011115074157714844s
+2021-06-04 11:43:01,370 INFO     Constructing var_q and var_Q
+2021-06-04 11:43:01,393 WARNING  
+Dimensions should be equal to 3, but they are not.
+You want ... 
+2021-06-04 11:43:02,020 INFO     time for q computation: 0.625586748123169s
+2021-06-04 11:43:02,020 WARNING  
+Dimensions should be equal to 3, but they are not.
+You want ... 
+2021-06-04 11:43:02,021 INFO     time for Q computation: 0.0009369850158691406s
+2021-06-04 11:43:02,027 INFO     Constructing var_q and var_Q
+2021-06-04 11:43:02,049 WARNING  
+Dimensions should be equal to 3, but they are not.
+You want ... 
+2021-06-04 11:43:02,669 INFO     time for q computation: 0.6201720237731934s
+2021-06-04 11:43:02,670 WARNING  
+Dimensions should be equal to 3, but they are not.
+You want ... 
+2021-06-04 11:43:02,670 INFO     time for Q computation: 0.0008556842803955078s
+2021-06-04 11:43:02,677 INFO     Constructing var_q and var_Q
+2021-06-04 11:43:02,698 WARNING  
+Dimensions should be equal to 3, but they are not.
+You want ... 
+2021-06-04 11:43:03,318 INFO     time for q computation: 0.619525671005249s
+2021-06-04 11:43:03,318 WARNING  
+Dimensions should be equal to 3, but they are not.
+You want ... 
+2021-06-04 11:43:03,319 INFO     time for Q computation: 0.0008740425109863281s
+2021-06-04 11:43:03,933 INFO     minmaxrange is a tuple
+2021-06-04 11:43:03,937 INFO     minmaxrange2 is a tuple
+2021-06-04 11:43:03,986 WARNING  
+Dimensions should be equal to 3, but they are not.
+You want ... 
+2021-06-04 11:44:15,870 INFO     time for 2d q computation: 71.88215184211731s
+2021-06-04 11:44:15,870 WARNING  
+Dimensions should be equal to 3, but they are not.
+You want ... 
+2021-06-04 11:44:16,042 INFO     time for new 2d Q computation: 0.17181015014648438s

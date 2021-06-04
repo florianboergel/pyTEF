@@ -218,6 +218,7 @@ class TEF_object():
 
     from .calc import calc_volume_transport
     from .calc import calc_salt_transport
+    from .calc import convert_q_to_Q
     from .calc import sort_1dim
     from .calc import sort_2dim
     from .calc import calc_bulk_values
