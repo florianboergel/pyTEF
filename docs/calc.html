@@ -40,6 +40,13 @@ nb_path: "03_calc.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -47,9 +54,10 @@ nb_path: "03_calc.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="calc_volume_transport" class="doc_header"><code>calc_volume_transport</code><a href="https://github.com/florianboergel/TotalExchangeFlow/tree/master/TotalExchangeFlow/calc.py#L15" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calc_volume_transport</code>(<strong><code>vel</code></strong>, <strong><code>height</code></strong>, <strong><code>delta</code></strong>)</p>
+<h4 id="convert_q_to_Q" class="doc_header"><code>convert_q_to_Q</code><a href="https://github.com/florianboergel/TotalExchangeFlow/tree/master/TotalExchangeFlow/calc.py#L15" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>convert_q_to_Q</code>(<strong><code>var_q</code></strong>, <strong><code>q</code></strong>, <strong><code>var_q2</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
-<p>Calculates volume transport</p>
+<p>Converts transport per coordinate class <code>q</code> to the integrated transport <code>Q</code> with the respective coordinates.
+valid if q is already computed separately</p>
 
 </div>
 
@@ -61,31 +69,16 @@ nb_path: "03_calc.ipynb"
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="calc_salt_transport" class="doc_header"><code>calc_salt_transport</code><a href="https://github.com/florianboergel/TotalExchangeFlow/tree/master/TotalExchangeFlow/calc.py#L19" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calc_salt_transport</code>(<strong><code>salt</code></strong>, <strong><code>vel</code></strong>, <strong><code>height</code></strong>, <strong><code>delta</code></strong>)</p>
-</blockquote>
-<p>Calculates salt transport</p>
-
-</div>
-
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Converts transport per coordinate class <code>q</code> to the integrated transport <code>Q</code> with the respective coordinates.</p>
+<p><code>var_q</code> - coordinate bin centers of <code>q</code>(e.g. salinity)</p>
+<p><code>q</code>     - transport per coordinates class (e.g. transport per salinity class)</p>
+<p><code>var_q2</code>- for two dimensional TEF cases this corresponds to the second coordinate the transport is sorted by (e.g. temperature)</p>
 
 </div>
 </div>
-
 </div>
-    {% endraw %}
-
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -104,7 +97,7 @@ nb_path: "03_calc.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="sort_1dim" class="doc_header"><code>sort_1dim</code><a href="https://github.com/florianboergel/TotalExchangeFlow/tree/master/TotalExchangeFlow/calc.py#L24" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sort_1dim</code>(<strong><code>sort_by_variable</code></strong>=<em><code>None</code></em>, <strong><code>transport</code></strong>=<em><code>None</code></em>, <strong><code>N</code></strong>=<em><code>None</code></em>, <strong><code>minmaxrange</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="sort_1dim" class="doc_header"><code>sort_1dim</code><a href="https://github.com/florianboergel/TotalExchangeFlow/tree/master/TotalExchangeFlow/calc.py#L99" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sort_1dim</code>(<strong><code>sort_by_variable</code></strong>=<em><code>None</code></em>, <strong><code>transport</code></strong>=<em><code>None</code></em>, <strong><code>N</code></strong>=<em><code>None</code></em>, <strong><code>minmaxrange</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Performs coordinate transformation by given variable.</p>
 
@@ -118,6 +111,22 @@ nb_path: "03_calc.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>sort_by_variable</code> - Sorts by given variable array (e.g. salinity)</p>
+<p><code>transport</code> - transport term; usually given in $m^3 / s$</p>
+<p><code>N</code> - Number of bins that is used by the sorting algorithm (default is 1024)</p>
+<p><code>minmaxrange</code> - Defines the range that is considered by the sorting algorithm (type can be either list, tuple or 1D-numpy array. If a 1D numpy array is provided the coordinates will correspond to <code>var_q</code>. If <code>None</code> the min and max values are automatically defined by the min and max values of <code>sort_by_variable</code>.</p>
+<p><strong>Returns</strong>:</p>
+<p>xarray dataset with computed <code>q</code> and <code>Q</code> terms and the their coordinates <code>var_q</code> and <code>var_Q</code>.</p>
+<h3 id="A-short-note-on-the-binning-for-the-terms-q-and-Q">A short note on the binning for the terms <code>q</code> and <code>Q</code><a class="anchor-link" href="#A-short-note-on-the-binning-for-the-terms-q-and-Q"> </a></h3><p><code>q</code> is defined on the axis that the transport is sorted by (center values of bins <code>var_q</code>). <code>Q</code> denotes the integral of <code>q</code> above a certain threshold and is therefore placed at the interface between to binds of <code>var_q</code>. These interface values are provided by <code>var_Q</code>.</p>
+<p>In the figure of <a href="https://os.copernicus.org/articles/15/601/2019/">Lorenz et al (2019), their Figure 5</a> this is explained and illustrated as follows:</p>
+<p>Sketch of how <code>Q</code> (here denoted as $Q^c_n$) and <code>q</code> (here denoted as $q^c_n$) are located in a discrete salinity space. The salinity interval $[S_{1/2},S_{N+1/2}]$ is divided into N equidistant salinity classes of length $\delta S$. The entries of $Q^c$ ($Q^c_n$) are located on the lines (interfaces), and the entries of $q^c$ ($q^c_n$) are located on the dots (centers).</p>
+<p><img src="https://os.copernicus.org/articles/15/601/2019/os-15-601-2019-f05-web.png" alt="drawing" width="200" style="max-width: 200px"></p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -136,7 +145,7 @@ nb_path: "03_calc.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="sort_2dim" class="doc_header"><code>sort_2dim</code><a href="https://github.com/florianboergel/TotalExchangeFlow/tree/master/TotalExchangeFlow/calc.py#L111" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sort_2dim</code>(<strong><code>sort_by_variable</code></strong>=<em><code>None</code></em>, <strong><code>sort_by_variable2</code></strong>=<em><code>None</code></em>, <strong><code>transport</code></strong>=<em><code>None</code></em>, <strong><code>N</code></strong>=<em><code>None</code></em>, <strong><code>minmaxrange</code></strong>=<em><code>None</code></em>, <strong><code>minmaxrange2</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="sort_2dim" class="doc_header"><code>sort_2dim</code><a href="https://github.com/florianboergel/TotalExchangeFlow/tree/master/TotalExchangeFlow/calc.py#L182" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sort_2dim</code>(<strong><code>sort_by_variable</code></strong>=<em><code>None</code></em>, <strong><code>sort_by_variable2</code></strong>=<em><code>None</code></em>, <strong><code>transport</code></strong>=<em><code>None</code></em>, <strong><code>N</code></strong>=<em><code>None</code></em>, <strong><code>minmaxrange</code></strong>=<em><code>None</code></em>, <strong><code>minmaxrange2</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Sort transport by two given variables</p>
 
@@ -150,6 +159,20 @@ nb_path: "03_calc.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>sort_by_variable</code> - Sorts by given variable array (e.g. salinity)</p>
+<p><code>sort_by_variable2</code> - Sorts by given second variable array (e.g. temperature)</p>
+<p><code>transport</code> - transport term; usually given in $m^3 / s$</p>
+<p><code>N</code> - Number of bins that is used by the sorting algorithm (default is 1024)</p>
+<p><code>minmaxrange</code> - Defines the range that is considered by the sorting algorithm (type can be either list, tuple or 1D-numpy array. If a 1D numpy array is provided the coordinates will correspond to <code>var_q</code>. If <code>None</code> the min and max values are automatically defined by the min and max values of <code>sort_by_variable</code>.</p>
+<p><code>minmaxrange2</code> - Defines the range that is considered by the sorting algorithm for the second variable <code>sort_by_variable2</code> (type can be either list, tuple or 1D-numpy array. If a 1D numpy array is provided the coordinates will correspond to <code>var_q</code>. If <code>None</code> the min and max values are automatically defined by the min and max values of <code>sort_by_variable2</code>.</p>
+<p><strong>Returns</strong>:</p>
+<p>xarray dataset with computed <code>q2</code> and <code>Q2</code> terms and the their coordinates <code>var_q</code>, <code>var_q2</code> and <code>var_Q</code>, <code>var_Q2</code>.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -168,8 +191,9 @@ nb_path: "03_calc.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="calc_bulk_values" class="doc_header"><code>calc_bulk_values</code><a href="https://github.com/florianboergel/TotalExchangeFlow/tree/master/TotalExchangeFlow/calc.py#L246" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calc_bulk_values</code>(<strong><code>coord</code></strong>, <strong><code>Q</code></strong>, <strong><code>Q_thresh</code></strong>=<em><code>None</code></em>, <strong><code>index</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="calc_bulk_values" class="doc_header"><code>calc_bulk_values</code><a href="https://github.com/florianboergel/TotalExchangeFlow/tree/master/TotalExchangeFlow/calc.py#L326" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calc_bulk_values</code>(<strong><code>coord</code></strong>, <strong><code>Q</code></strong>, <strong><code>Q_thresh</code></strong>=<em><code>None</code></em>, <strong><code>index</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
+<p>Calculates the bulk values from a provided Q profile using the dividing salinity approach</p>
 
 </div>
 
@@ -181,6 +205,18 @@ nb_path: "03_calc.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>coords</code> - coordinate corresponding to the interface values of <code>Q</code> (previously defined as <code>var_Q</code></p>
+<p><code>Q</code> - intergrated transport</p>
+<p><code>Q_thresh</code> - threshold of the minimum integrated transport <code>Q</code> that will be considered. If none $0.01 * max(|Q|)$ is used.</p>
+<p><code>index</code> - array index of previously computed dividing values (e.g. salinities). If None the values will be computed. Hence, this index is only used to save time.</p>
+<p><strong>Returns:</strong></p>
+<p>xarray dataset with <code>Qin, Qout</code> which are the bulk values of the inflow and outflow (multiple inflows and outflow are possible), respectively. Also returns <code>divval, index</code> which are the dividing values (e.g. salinities) that are separating inflows and outflows and their corresponding indices.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">

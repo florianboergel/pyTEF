@@ -144,31 +144,36 @@ class TEF_object():
                                     self._latitude_name,
                                     self._longitude_name)
 
-    def _get_name_time(self):
+    def _get_name_time(self, x = None):
         """
         check for 'time' dimension and return name
         """
         # check unit
-        for dim in self.ds.dims:
-            if (('units' in self.ds[dim].attrs and
-                'since' in self.ds[dim].attrs['units']) or
-                ('units' in self.ds[dim].encoding and
-                 'since' in self.ds[dim].encoding['units']) or
-                dim in ['time']):
-                return dim
-        # check dtype
-        for dim in self.ds.variables:
-            try:
-                var = self.ds[dim].data[0]
-            except IndexError:
-                var = self.ds[dim].data
-            if isinstance(var, np.datetime64):
-                return dim
-        # no 'time' dimension found
-        logger.warning(
-            "\n 'time' dimension (dtype='datetime64[ns]') not found."
-        )
-        return None
+        if x is not None:
+            if isinstance(x, np.ndarray):
+                logger.info('numpy array -> creating artificial time axis')
+                return np.arange(x.shape[0])
+        else:
+            for dim in self.ds.dims:
+                if (('units' in self.ds[dim].attrs and
+                    'since' in self.ds[dim].attrs['units']) or
+                    ('units' in self.ds[dim].encoding and
+                     'since' in self.ds[dim].encoding['units']) or
+                    dim in ['time']):
+                    return dim
+            # check dtype
+            for dim in self.ds.variables:
+                try:
+                    var = self.ds[dim].data[0]
+                except IndexError:
+                    var = self.ds[dim].data
+                if isinstance(var, np.datetime64):
+                    return dim
+            # no 'time' dimension found
+            logger.warning(
+                "\n 'time' dimension (dtype='datetime64[ns]') not found."
+            )
+            return None
 
     def _get_name_longitude(self):
         """
@@ -216,8 +221,6 @@ class TEF_object():
         )
         return None
 
-    from .calc import calc_volume_transport
-    from .calc import calc_salt_transport
     from .calc import convert_q_to_Q
     from .calc import sort_1dim
     from .calc import sort_2dim

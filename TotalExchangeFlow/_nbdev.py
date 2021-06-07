@@ -4,8 +4,6 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"logger": "03_calc.ipynb",
          "TEF_object": "00_tef_core.ipynb",
-         "calc_volume_transport": "03_calc.ipynb",
-         "calc_salt_transport": "03_calc.ipynb",
          "convert_q_to_Q": "03_calc.ipynb",
          "sort_1dim": "03_calc.ipynb",
          "sort_2dim": "03_calc.ipynb",
