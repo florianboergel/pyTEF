@@ -1,7 +1,7 @@
-repository: florianboergel/tef
+repository: florianboergel/TotalExchangeFlow
 output: web
-topnav_title: tef
-site_title: tef
+topnav_title: TotalExchangeFlow
+site_title: TotalExchangeFlow
 company_name: Not
 description: Total Exchange Flow Framework using xarray
 # Set to false to disable KaTeX math
