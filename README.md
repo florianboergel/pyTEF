@@ -8,9 +8,9 @@ To do so TEF analyzes the exchange flow in salinity and/or temperature coordinat
 
 To install use
 
-`git clone https://github.com/florianboergel/TotalExchangeFlow.git` and then 
+`git clone https://github.com/florianboergel/pyTEF.git` and then 
 
-`pip install -e TotalExchangeFlow`
+`pip install -e pyTEF`
 
 ## How to use
 
