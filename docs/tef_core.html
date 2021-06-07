@@ -61,7 +61,7 @@ nb_path: "00_tef_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="TEF_object" class="doc_header"><code>class</code> <code>TEF_object</code><a href="https://github.com/florianboergel/TotalExchangeFlow/tree/master/TotalExchangeFlow/tef_core.py#L20" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TEF_object</code>(<strong><code>filename</code></strong>=<em><code>None</code></em>, <strong><code>ds</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h2 id="TEF_object" class="doc_header"><code>class</code> <code>TEF_object</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L20" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TEF_object</code>(<strong><code>filename</code></strong>=<em><code>None</code></em>, <strong><code>ds</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Total Exchange Flow (TEF) Object used for calculating TEF properties</p>
 
@@ -77,7 +77,7 @@ nb_path: "00_tef_core.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The user can either provide the path to a netCDF-dataset using <code>filename</code>, which will then be loaded as a xarray dataset. If a pre-loaded xarray dataset is already present, the user can simply assign this to the <a href="/TotalExchangeFlow/tef_core.html#TEF_object"><code>TEF_object</code></a> by using <code>ds</code>.</p>
+<p>The user can either provide the path to a netCDF-dataset using <code>filename</code>, which will then be loaded as a xarray dataset. If a pre-loaded xarray dataset is already present, the user can simply assign this to the <a href="/pyTEF/tef_core.html#TEF_object"><code>TEF_object</code></a> by using <code>ds</code>.</p>
 
 </div>
 </div>
@@ -122,7 +122,7 @@ nb_path: "00_tef_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TEF_object.read" class="doc_header"><code>TEF_object.read</code><a href="https://github.com/florianboergel/TotalExchangeFlow/tree/master/TotalExchangeFlow/tef_core.py#L87" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object.read</code>(<strong><code>filename</code></strong>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="TEF_object.read" class="doc_header"><code>TEF_object.read</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L87" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object.read</code>(<strong><code>filename</code></strong>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Reads xarray dataset</p>
 
@@ -138,7 +138,7 @@ nb_path: "00_tef_core.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Is called during the initialization of the the <a href="/TotalExchangeFlow/tef_core.html#TEF_object"><code>TEF_object</code></a> when a <code>filename</code> is provided.</p>
+<p>Is called during the initialization of the the <a href="/pyTEF/tef_core.html#TEF_object"><code>TEF_object</code></a> when a <code>filename</code> is provided.</p>
 
 </div>
 </div>
@@ -154,7 +154,7 @@ nb_path: "00_tef_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TEF_object.set_up" class="doc_header"><code>TEF_object.set_up</code><a href="https://github.com/florianboergel/TotalExchangeFlow/tree/master/TotalExchangeFlow/tef_core.py#L95" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object.set_up</code>(<strong><code>time_name</code></strong>=<em><code>None</code></em>, <strong><code>longitude_name</code></strong>=<em><code>None</code></em>, <strong><code>latitude_name</code></strong>=<em><code>None</code></em>, <strong><code>depth_name</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="TEF_object.set_up" class="doc_header"><code>TEF_object.set_up</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L95" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object.set_up</code>(<strong><code>time_name</code></strong>=<em><code>None</code></em>, <strong><code>longitude_name</code></strong>=<em><code>None</code></em>, <strong><code>latitude_name</code></strong>=<em><code>None</code></em>, <strong><code>depth_name</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Setup xarray.dataset and transposes dimensions into needed format</p>
 
@@ -170,7 +170,7 @@ nb_path: "00_tef_core.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="/TotalExchangeFlow/tef_core.html#TEF_object.set_up"><code>TEF_object.set_up</code></a> tries to automatically find the corresponding dimensions. If no 4D array is provided, dummy dimensions will be created. However, sometimes the naming of the dimensions deviates from common dimension descriptions. If so, the explicit dimension names can be provided as well. The function automatically reorders the dimensions into <code>time, z, y, x</code>.</p>
+<p><a href="/pyTEF/tef_core.html#TEF_object.set_up"><code>TEF_object.set_up</code></a> tries to automatically find the corresponding dimensions. If no 4D array is provided, dummy dimensions will be created. However, sometimes the naming of the dimensions deviates from common dimension descriptions. If so, the explicit dimension names can be provided as well. The function automatically reorders the dimensions into <code>time, z, y, x</code>.</p>
 
 </div>
 </div>
@@ -654,7 +654,7 @@ Data variables:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TEF_object._get_name_time" class="doc_header"><code>TEF_object._get_name_time</code><a href="https://github.com/florianboergel/TotalExchangeFlow/tree/master/TotalExchangeFlow/tef_core.py#L147" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object._get_name_time</code>(<strong><code>x</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="TEF_object._get_name_time" class="doc_header"><code>TEF_object._get_name_time</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L147" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object._get_name_time</code>(<strong><code>x</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>check for 'time' dimension and return name</p>
 
@@ -679,7 +679,7 @@ Data variables:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TEF_object._get_name_depth" class="doc_header"><code>TEF_object._get_name_depth</code><a href="https://github.com/florianboergel/TotalExchangeFlow/tree/master/TotalExchangeFlow/tef_core.py#L209" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object._get_name_depth</code>()</p>
+<h4 id="TEF_object._get_name_depth" class="doc_header"><code>TEF_object._get_name_depth</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L209" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object._get_name_depth</code>()</p>
 </blockquote>
 <p>check for 'depth' dimension and return name</p>
 
@@ -704,7 +704,7 @@ Data variables:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TEF_object._get_name_longitude" class="doc_header"><code>TEF_object._get_name_longitude</code><a href="https://github.com/florianboergel/TotalExchangeFlow/tree/master/TotalExchangeFlow/tef_core.py#L178" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object._get_name_longitude</code>()</p>
+<h4 id="TEF_object._get_name_longitude" class="doc_header"><code>TEF_object._get_name_longitude</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L178" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object._get_name_longitude</code>()</p>
 </blockquote>
 <p>check for 'longitude' dimension and return name</p>
 
@@ -729,7 +729,7 @@ Data variables:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TEF_object._get_name_latitude" class="doc_header"><code>TEF_object._get_name_latitude</code><a href="https://github.com/florianboergel/TotalExchangeFlow/tree/master/TotalExchangeFlow/tef_core.py#L194" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object._get_name_latitude</code>()</p>
+<h4 id="TEF_object._get_name_latitude" class="doc_header"><code>TEF_object._get_name_latitude</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L194" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object._get_name_latitude</code>()</p>
 </blockquote>
 <p>check for 'latitude' dimension and return name</p>
 

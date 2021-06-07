@@ -1,7 +1,7 @@
-repository: florianboergel/TotalExchangeFlow
+repository: florianboergel/pyTEF
 output: web
-topnav_title: TotalExchangeFlow
-site_title: TotalExchangeFlow
+topnav_title: pyTEF
+site_title: pyTEF
 company_name: Not
 description: Total Exchange Flow Framework using xarray
 # Set to false to disable KaTeX math
@@ -63,4 +63,4 @@ plugins:
     - jekyll-remote-theme
     
 remote_theme: fastai/nbdev-jekyll-theme
-baseurl: /TotalExchangeFlow/
+baseurl: /pyTEF/

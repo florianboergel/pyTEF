@@ -13,15 +13,15 @@ entries:
       title: TEF core framework
       url: tef_core.html
     - output: web,pdf
-      title: Example 1
-      url: example_persian_gulf.html
+      title: TEF calculations
+      url: calc.html
     - output: web,pdf
       title: Example 2
       url: example_analytical.html
     - output: web,pdf
-      title: TEF calculations
-      url: calc.html
+      title: Example 1
+      url: example_persian_gulf.html
     output: web
-    title: TotalExchangeFlow
+    title: pyTEF
   output: web
   title: Sidebar

@@ -1,6 +1,8 @@
-# Total Exchange Flow (TEF)
-> TEF analyzes the exchange flow of an estuary in salinity and/or temperature coordinates rather than spatial coordinates since the dynamics of most estuaries are controlled by the salt distribution. 
+# pyTEF
+> pyTEF is a Python package that can be used to apply the Total Exchange Framework (TEF) to analyze the exchange flow of an estuary.
 
+
+To do so TEF analyzes the exchange flow in salinity and/or temperature coordinates rather than spatial coordinates since the dynamics of most estuaries are controlled by the salt distribution. This package provides the necessary tools to use the TEF framework and is built on top of xarray.
 
 ## Installing
 
@@ -14,13 +16,17 @@ To install use
 
 `00_tef_core.ipynb` contains the TEF framework and all documentation.
 
+`01_calc.ipynb` mainly contains the coordinate transformation of the transport terms and the calculation of the bulk values
+
 Further you find different examples on how to use the TEF framework.
 
-- `01_example_persian_gulf.ipynb`
+- `02_example_analytical.ipynb` - validation of the pyTEF package
+
+- `03_example_persian_gulf.ipynb` - example TEF analysis applied to the Persian Gulf
 
 ## Learn about TEF
 
-The TEF analysis framework (Burchard et al., 2018; Lorenz et al., 2019; MacCready, 2011) allows a consistent calculation of the transports and salinities of an exchange flow in salinity space. The main idea of TEF is that transports of volume and salinity in and out the estuary of the same salinity partially compensate since only the net exchange changes salinity and volume of the estuary.
+The TEF analysis framework (Burchard et al., 2018; Lorenz et al., 2019; MacCready, 2011) allows a consistent calculation of the transports and salinities of an exchange flow in salinity space (or every other coordinate). The main idea of TEF is that transports of volume and salinity in and out the estuary of the same salinity partially compensate since only the net exchange changes salinity and volume of the estuary.
 
 The reader is referenced to the follwing literature:
 
@@ -38,10 +44,14 @@ Flow analysis framework applied to the Baltic Sea. Progress in Oceanography,
 
 ## What's new 
 
+### v0.2 (07.06.2021)
+
+- first version of pyTEF ready for testing
+    - example cases added
+    - calculation of bulk values
+    - algorithm that finds minima and maxima in a given Q profile
+    - added documentation
+
 ### v0.1 (25.05.2021)
 
 - implementation of 2D sorting
-
-
-All variables have to be in the xarray dataset. variable konsistent benennen
-schichtdicke nicht depth
