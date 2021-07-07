@@ -1,8 +1,8 @@
 # pyTEF
-> pyTEF is a Python package that can be used to apply the Total Exchange Framework (TEF) to analyze the exchange flow of an estuary.
+> pyTEF is a Python package that can be used to apply the Total Exchange (TEF) analysis framework to analyze the exchange flow of an estuary.
 
 
-To do so TEF analyzes the exchange flow in salinity and/or temperature coordinates rather than spatial coordinates since the dynamics of most estuaries are controlled by the salt distribution. This package provides the necessary tools to use the TEF framework and is built on top of xarray.
+To do so TEF analyzes the exchange flow in salinity and/or temperature coordinates rather than spatial coordinates. This package provides the necessary tools to use the TEF framework and is built on top of xarray.
 
 ## Installing
 
@@ -26,23 +26,26 @@ Further you find different examples on how to use the TEF framework.
 
 ## Learn about TEF
 
-The TEF analysis framework (Burchard et al., 2018; Lorenz et al., 2019; MacCready, 2011) allows a consistent calculation of the transports and salinities of an exchange flow in salinity space (or every other coordinate). The main idea of TEF is that transports of volume and salinity in and out the estuary of the same salinity partially compensate since only the net exchange changes salinity and volume of the estuary.
+The TEF analysis framework (MacCready, 2011; Lorenz et al., 2019) allows a consistent calculation of the transports and salinities of an exchange flow in salinity space (or every other coordinate). The main idea of TEF is that transports of volume and salinity in and out the estuary of the same salinity partially compensate since only the net exchange changes salinity and volume of the estuary.
 
-The reader is referenced to the follwing literature:
+The reader is referenced to the following literature:
 
 - [PhD thesis of Marvin Lorenz](http://rosdok.uni-rostock.de/resolve/id/rosdok_disshab_0000002489?_search=89c68482-f7cc-4363-89af-58ddebb819c2&_hit=0)
 
-- Burchard, H., et al. (2018) The Knudsen theorem and the Total Exchange
-Flow analysis framework applied to the Baltic Sea. Progress in Oceanography,
-10.1016/j.pocean.2018.04.004.
-
-- Lorenz, M., Klingbeil, K., and Burchard, H. (2020) Numerical Study of the Persian Gulf using an Extended Total Exchange Flow Analysis Framework, J. Geophys. Res. Oceans, 125, e2019JC015527, https://doi.org/10.1029/2019JC015527
+- MacCready, P., 2011: Calculating estuarine exchange flow using isohaline coordinates. Journal of Physical Oceanography, 41 (6), 1116–1124.
 
 - Lorenz, M., Klingbeil, K., MacCready, P., and Burchard, H. (2019) Numerical issues of the Total Exchange Flow (TEF) analysis framework for quantifying estuarine circulation, Ocean Sci., 15, 601-614, https://doi.org/10.5194/os-15-601-2019
 
-- MacCready, P., 2011: Calculating estuarine exchange flow using isohaline coordinates. Journal of Physical Oceanography, 41 (6), 1116–1124.
+- Lorenz, M., Klingbeil, K., and Burchard, H. (2020) Numerical Study of the Persian Gulf using an Extended Total Exchange Flow Analysis Framework, J. Geophys. Res. Oceans, 125, e2019JC015527, https://doi.org/10.1029/2019JC015527
+
 
 ## What's new 
+
+### v0.3 (07.07.2021)
+
+- improvements in code and documentation
+    - examples are completed
+    - documentation of the functions and examples 
 
 ### v0.2 (07.06.2021)
 
