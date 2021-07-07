@@ -21,6 +21,9 @@ entries:
     - output: web,pdf
       title: Example 1
       url: example_persian_gulf.html
+    - output: web,pdf
+      title: Title
+      url: download_test_data.html
     output: web
     title: pyTEF
   output: web

@@ -7,10 +7,12 @@ index = {"logger": "01_calc.ipynb",
          "convert_q_to_Q": "01_calc.ipynb",
          "sort_1dim": "01_calc.ipynb",
          "sort_2dim": "01_calc.ipynb",
-         "calc_bulk_values": "01_calc.ipynb"}
+         "calc_bulk_values": "01_calc.ipynb",
+         "download_test_data": "04_download_test_data.ipynb"}
 
 modules = ["tef_core.py",
-           "calc.py"]
+           "calc.py",
+           "tutorial.py"]
 
 doc_url = "https://florianboergel.github.io/pyTEF/"
 
