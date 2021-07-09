@@ -3,11 +3,12 @@
 __all__ = ['logger', 'convert_q_to_Q', 'sort_1dim', 'sort_2dim', 'calc_bulk_values']
 
 # Cell
-import math
 import numpy as np
 import xarray as xr
 from tqdm import tqdm
 import logging
+import time
+
 
 logger = logging.getLogger(__name__)
 
@@ -153,7 +154,6 @@ def sort_1dim(self, sort_by_variable = None, transport = None, N = None, minmaxr
 
     out_q = np.zeros((self.timesteps,N))
 
-    import time
     start = time.time()
     for i in tqdm(range(N)):
         out_q[:, i] = transport.where(idx == i).sum([self._get_name_depth(),
@@ -291,7 +291,6 @@ def sort_2dim(self, sort_by_variable = None,
 
         out_q = np.zeros((self.timesteps,N1, N2))
 
-        import time
         start=time.time()
         for i in tqdm(range(N1)):
             for j in range(N2):
@@ -523,8 +522,6 @@ def _find_extrema(x,min_transport):
         #index=[]
         ii=1
         while ii < len(indices):
-            #print('minmin/maxmax',ii,len(indices))
-            #print(minmax)
             index=[]
             if minmax[ii] == minmax[ii-1]:
                 if minmax[ii] == 'max': #note the index of the smaller maximum
@@ -543,37 +540,28 @@ def _find_extrema(x,min_transport):
                 minmax = np.delete(minmax, index)
             else:
                 ii+=1
-        #print(indices,minmax)
 
         ####
         #delete too small transports
         ####
 
-        #print(indices,minmax)
         ii=0
         while ii < len(indices)-1:
             index=[]
-            #print('min_trans',ii,len(indices))
-            #print(indices,minmax)
-            #print(np.abs(np.abs(x[indices[ii+1]])-np.abs(x[indices[ii]])),min_transport,indices[ii],indices[ii+1])
             if np.abs(x[indices[ii+1]]-x[indices[ii]]) < min_transport:
-                #print(np.abs(x[indices[ii+1]]-x[indices[ii]]),min_transport,indices[ii],indices[ii+1],x[indices[ii]],x[indices[ii+1]])
                 if ii == 0: #if smin is involved and the transport is too small, smin has to change its min or max property
-                    #print('if')
                     index.append(ii+1)
                     if minmax[ii] == 'min':
                         minmax[ii] = 'max'
                     else:
                         minmax[ii] = 'min'
                 elif ii+1==len(indices)-1:#if smax is involved and the transport is too small, smin has to change its min or max property
-                    #print('elif')
                     index.append(ii)
                     if minmax[ii+1] == 'min':
                         minmax[ii+1] = 'max'
                     else:
                         minmax[ii+1] = 'min'
                 else: #else both involved div sals are kicked out
-                    #print('else')
                     if ii+2 < len(indices)-1:
                     #check and compare to i+2
                         if minmax[ii]=='min':
@@ -593,10 +581,8 @@ def _find_extrema(x,min_transport):
                     else:
                         index.append(ii)
                         index.append(ii+1)
-                #print(index)
                 indices = np.delete(indices, index)
                 minmax = np.delete(minmax, index)
-                #print('after delete',indices,minmax)
             else:
                 ii+=1
 
@@ -605,7 +591,6 @@ def _find_extrema(x,min_transport):
         #correct smin index
         ###
 
-        #print(indices,minmax)
         if len(x)>4:
             ii=1
             while np.abs(np.abs(x[ii])-np.abs(x[0])) < 10**(-10) and ii < len(x)-1:
