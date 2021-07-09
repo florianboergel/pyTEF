@@ -248,7 +248,7 @@ nb_path: "02_example_analytical.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Setup-TEF-routine">Setup TEF routine<a class="anchor-link" href="#Setup-TEF-routine"> </a></h2><p>Perform TEF analysis using the <code>TotalExchangeFlow</code> package.</p>
+<h2 id="Setup-TEF-routine">Setup TEF routine<a class="anchor-link" href="#Setup-TEF-routine"> </a></h2><p>Perform TEF analysis using the <code>pyTEF</code> package.</p>
 
 </div>
 </div>
@@ -432,8 +432,7 @@ Created dummy dimension for depth
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s_div</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="o">-</span><span class="n">s_a</span><span class="o">*</span><span class="n">u_r</span><span class="o">/</span><span class="n">u_a</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span><span class="o">+</span><span class="n">s_r</span><span class="p">)</span> <span class="c1">#dividing salinity</span>
-
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s_div</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="o">-</span><span class="n">s_a</span><span class="o">*</span><span class="n">u_r</span><span class="o">/</span><span class="n">u_a</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span><span class="o">+</span><span class="n">s_r</span><span class="p">)</span> <span class="c1">#analytical dividing salinity</span>
 <span class="n">Q_in_ana</span>  <span class="o">=</span> <span class="n">Q_analytical</span><span class="p">(</span><span class="n">s_div</span><span class="p">)</span>
 <span class="n">Q_out_ana</span> <span class="o">=</span> <span class="n">Q_analytical</span><span class="p">(</span><span class="mf">10.</span><span class="p">)</span> <span class="o">-</span> <span class="n">Q_in_ana</span>
 

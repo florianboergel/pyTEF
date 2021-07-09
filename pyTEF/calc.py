@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 # Cell
 def convert_q_to_Q(self, var_q, q, var_q2 = None):
     """Converts transport per coordinate class `q` to the integrated transport `Q` with the respective coordinates.
-        valid if q is already computed separately"""
+        Use if q is already computed separately."""
     if len(q.shape) == 1:
         #no time axis
         delta_var = var_q[1]-var_q[0]
@@ -150,12 +150,14 @@ def sort_1dim(self, sort_by_variable = None, transport = None, N = None, minmaxr
         var_Q = np.linspace(varmin, varmax, N+1)
 
     # Changelog: 27.05.2021: Change var_Q to var_q
+    # compute the index idx that will be used for sorting
     idx = xr.apply_ufunc(np.digitize, sort_by_variable, var_q)
 
     out_q = np.zeros((self.timesteps,N))
 
     start = time.time()
     for i in tqdm(range(N)):
+        #Sorting into bins
         out_q[:, i] = transport.where(idx == i).sum([self._get_name_depth(),
                                                      self._get_name_latitude(),
                                                      self._get_name_longitude()],dtype=np.float64) / delta_var
@@ -328,7 +330,8 @@ def calc_bulk_values(self,
                      Q_thresh=None,
                      index=None,
                      **kwargs):
-    """Calculates the bulk values from a provided Q profile using the dividing salinity approach"""
+    """Calculates the bulk values from a provided Q profile using the dividing salinity approach
+    proposed by MacCready et al. (2018) and described/tested in detail by Lorenz et al. (2019)"""
     coord_min=coord[0]
     delta_var=coord[1]-coord[0]
 
@@ -472,7 +475,7 @@ def _get_time_array(x):
 def _find_extrema(x,min_transport):
     """
     internal function called by calc_bulk values to find the extrema in the transport function x
-    and label them correctly
+    and label them correctly, see Appendix B in Lorenz et al. (2019).
     x: Q(S)
     min_transport: Q_thresh
     """
