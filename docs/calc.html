@@ -6,8 +6,8 @@ title: TEF calculations
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "contains calculation of TEF framework"
-description: "contains calculation of TEF framework"
+summary: "contains calculations of TEF framework"
+description: "contains calculations of TEF framework"
 nb_path: "01_calc.ipynb"
 ---
 <!--
@@ -54,7 +54,7 @@ nb_path: "01_calc.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="convert_q_to_Q" class="doc_header"><code>convert_q_to_Q</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/calc.py#L16" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>convert_q_to_Q</code>(<strong><code>var_q</code></strong>, <strong><code>q</code></strong>, <strong><code>var_q2</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="convert_q_to_Q" class="doc_header"><code>convert_q_to_Q</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/calc.py#L12" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>convert_q_to_Q</code>(<strong><code>var_q</code></strong>, <strong><code>q</code></strong>, <strong><code>var_q2</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Converts transport per coordinate class <code>q</code> to the integrated transport <code>Q</code> with the respective coordinates.
 Use if q is already computed separately.</p>
@@ -76,7 +76,7 @@ Use if q is already computed separately.</p>
 <p><code>q</code>     - transport per coordinates class (e.g. transport per salinity class)</p>
 <p><code>var_q2</code>- for two dimensional TEF cases this corresponds to the second coordinate the transport is sorted by (e.g. temperature)</p>
 <p><strong>Returns</strong>:</p>
-<p>New xarray dataset with <code>Q</code>, <code>var_Q</code>, and <code>var_Q2</code> (if two dimensional TEF) TODO: add numpy array output, and possibility to add to existing dataset</p>
+<p>New xarray dataset with <code>Q</code>, <code>var_Q</code>, and <code>var_Q2</code> (if two dimensional TEF)</p>
 
 </div>
 </div>
@@ -99,7 +99,7 @@ Use if q is already computed separately.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="sort_1dim" class="doc_header"><code>sort_1dim</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/calc.py#L100" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sort_1dim</code>(<strong><code>sort_by_variable</code></strong>=<em><code>None</code></em>, <strong><code>transport</code></strong>=<em><code>None</code></em>, <strong><code>N</code></strong>=<em><code>None</code></em>, <strong><code>minmaxrange</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="sort_1dim" class="doc_header"><code>sort_1dim</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/calc.py#L96" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sort_1dim</code>(<strong><code>sort_by_variable</code></strong>=<em><code>None</code></em>, <strong><code>transport</code></strong>=<em><code>None</code></em>, <strong><code>N</code></strong>=<em><code>1024</code></em>, <strong><code>minmaxrange</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Performs coordinate transformation by given variable.</p>
 
@@ -118,7 +118,7 @@ Use if q is already computed separately.</p>
 <p><code>sort_by_variable</code> - Sorts by given variable array (e.g. salinity)</p>
 <p><code>transport</code> - transport term; e.g. for volume the unit is $m^3 / s$</p>
 <p><code>N</code> - Number of bins that is used by the sorting algorithm (default is 1024)</p>
-<p><code>minmaxrange</code> - Defines the range of the bin axis that is considered by the sorting algorithm (type can be either list, tuple or 1D-numpy array. If a 1D numpy array is provided the coordinates will correspond to <code>var_q</code>. If <code>None</code> the min and max values are automatically defined by the min and max values of <code>sort_by_variable</code>.</p>
+<p><code>minmaxrange</code> - Defines the range of the bin axis that is considered by the sorting algorithm (type can be either a list, a tuple or a 1D-numpy array). If a 1D-numpy array is provided the coordinates will correspond to <code>var_q</code>. If <code>None</code> the minimum and maximum values are automatically defined by the minimum and maximum values of <code>sort_by_variable</code>.</p>
 <p><strong>Returns</strong>:</p>
 <p>xarray dataset with computed <code>q</code> and <code>Q</code> terms and the their coordinates <code>var_q</code> and <code>var_Q</code>.</p>
 <h3 id="A-short-note-on-the-binning-for-the-terms-q-and-Q">A short note on the binning for the terms <code>q</code> and <code>Q</code><a class="anchor-link" href="#A-short-note-on-the-binning-for-the-terms-q-and-Q"> </a></h3><p><code>q</code> is defined on the axis that the transport is sorted by (center values of bins <code>var_q</code>). <code>Q</code> denotes the integral of <code>q</code> above a certain threshold and is therefore placed at the interface between to binds of <code>var_q</code>. These interface values are provided by <code>var_Q</code>.</p>
@@ -147,7 +147,7 @@ Use if q is already computed separately.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="sort_2dim" class="doc_header"><code>sort_2dim</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/calc.py#L184" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sort_2dim</code>(<strong><code>sort_by_variable</code></strong>=<em><code>None</code></em>, <strong><code>sort_by_variable2</code></strong>=<em><code>None</code></em>, <strong><code>transport</code></strong>=<em><code>None</code></em>, <strong><code>N</code></strong>=<em><code>None</code></em>, <strong><code>minmaxrange</code></strong>=<em><code>None</code></em>, <strong><code>minmaxrange2</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="sort_2dim" class="doc_header"><code>sort_2dim</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/calc.py#L170" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sort_2dim</code>(<strong><code>sort_by_variable</code></strong>=<em><code>None</code></em>, <strong><code>sort_by_variable2</code></strong>=<em><code>None</code></em>, <strong><code>transport</code></strong>=<em><code>None</code></em>, <strong><code>N</code></strong>=<em><code>(1024, 1024)</code></em>, <strong><code>minmaxrange</code></strong>=<em><code>None</code></em>, <strong><code>minmaxrange2</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Sort transport by two given variables</p>
 
@@ -166,9 +166,9 @@ Use if q is already computed separately.</p>
 <p><code>sort_by_variable</code> - Sorts by given variable array (e.g. salinity); Note: if plotted, this will be the y-axis</p>
 <p><code>sort_by_variable2</code> - Sorts by given second variable array (e.g. temperature); Note: if plotted, this will be the x-axis</p>
 <p><code>transport</code> - transport term; for volume the unit is $m^3 / s$</p>
-<p><code>N</code> - Number of bins that is used by the sorting algorithm (default is 1024)</p>
-<p><code>minmaxrange</code> - Defines the range that is considered by the sorting algorithm (type can be either list, tuple or 1D-numpy array. If a 1D numpy array is provided the coordinates will correspond to <code>var_q</code>. If <code>None</code> the min and max values are automatically defined by the min and max values of <code>sort_by_variable</code>.</p>
-<p><code>minmaxrange2</code> - Defines the range that is considered by the sorting algorithm for the second variable <code>sort_by_variable2</code> (type can be either list, tuple or 1D-numpy array. If a 1D numpy array is provided the coordinates will correspond to <code>var_q</code>. If <code>None</code> the min and max values are automatically defined by the min and max values of <code>sort_by_variable2</code>.</p>
+<p><code>N</code> - Number of bins that is used by the sorting algorithm. N is a tuple (N1, N2; default) corresponding to the sorting dimensions.</p>
+<p><code>minmaxrange</code> - Defines the range that is considered by the sorting algorithm (type can be either list, tuple or 1D-numpy array). If a 1D-numpy array is provided the coordinates will correspond to <code>var_q</code>. If <code>None</code> the min and max values are automatically defined by the min and max values of <code>sort_by_variable</code>.</p>
+<p><code>minmaxrange2</code> - Defines the range that is considered by the sorting algorithm for the second variable <code>sort_by_variable2</code> (type can be either list, tuple or 1D-numpy array). If a 1D-numpy array is provided the coordinates will correspond to <code>var_q</code>. If <code>None</code> the min and max values are automatically defined by the min and max values of <code>sort_by_variable2</code>.</p>
 <p><strong>Returns</strong>:</p>
 <p>xarray dataset with computed <code>q2</code> and <code>Q2</code> terms and the their coordinates <code>var_q</code>, <code>var_q2</code> and <code>var_Q</code>, <code>var_Q2</code>.</p>
 
@@ -193,7 +193,7 @@ Use if q is already computed separately.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="calc_bulk_values" class="doc_header"><code>calc_bulk_values</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/calc.py#L327" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calc_bulk_values</code>(<strong><code>coord</code></strong>, <strong><code>Q</code></strong>, <strong><code>Q_thresh</code></strong>=<em><code>None</code></em>, <strong><code>index</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="calc_bulk_values" class="doc_header"><code>calc_bulk_values</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/calc.py#L298" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calc_bulk_values</code>(<strong><code>coord</code></strong>, <strong><code>Q</code></strong>, <strong><code>Q_thresh</code></strong>=<em><code>None</code></em>, <strong><code>index</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Calculates the bulk values from a provided Q profile using the dividing salinity approach
 proposed by MacCready et al. (2018) and described/tested in detail by Lorenz et al. (2019)</p>

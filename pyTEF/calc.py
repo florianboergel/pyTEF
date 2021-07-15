@@ -93,7 +93,7 @@ def convert_q_to_Q(self, var_q, q, var_q2 = None):
         return out
 
 # Cell
-def sort_1dim(self, sort_by_variable = None, transport = None, N = None, minmaxrange = None):
+def sort_1dim(self, sort_by_variable = None, transport = None, N = 1024, minmaxrange = None):
     """Performs coordinate transformation by given variable."""
     if sort_by_variable is None:
         raise ValueError("Please define a variable that you want to sort by.")
@@ -118,10 +118,6 @@ def sort_1dim(self, sort_by_variable = None, transport = None, N = None, minmaxr
         else:
             varmin = minmaxrange[0]
             varmax = minmaxrange[-1]
-
-    if N is None:
-        N = 1024
-        print("Setting N to default value of 1024")
 
     if type(minmaxrange) == "numpy.ndarray":
         print('Using provided numpy array')
@@ -174,7 +170,7 @@ def sort_1dim(self, sort_by_variable = None, transport = None, N = None, minmaxr
 def sort_2dim(self, sort_by_variable = None,
                     sort_by_variable2 = None,
                     transport = None,
-                    N = None,
+                    N = (1024, 1024),
                     minmaxrange = None,
                     minmaxrange2 = None):
         """Sort transport by two given variables"""
@@ -224,18 +220,9 @@ def sort_2dim(self, sort_by_variable = None,
                 varmin2 = minmaxrange2[0]
                 varmax2 = minmaxrange2[-1]
 
-        if N is None:
-            N1 = 1024
-            N2 = 1024
-            print("Setting N to default value of 1024")
-
         if type(N) is tuple:
             N1 = N[0]
             N2 = N[1]
-
-        if type(N) is int:
-            N1 = N
-            N2 = N
 
         if type(minmaxrange) == "numpy.ndarray":
             print('Using provided numpy array for variable 1')

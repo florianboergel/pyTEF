@@ -61,7 +61,7 @@ class TEF_object():
     @property
     def timesteps(self):
         if len(self.ds.dims) != 3:
-            raise Warning(
+            print(
                 "\nDimensions should be equal to 3, but they are not.\n"
             )
             return self.ds.dims[self._get_name_time()]
@@ -88,7 +88,7 @@ class TEF_object():
            longitude_name=None,
            latitude_name=None,
            depth_name=None):
-        """Setup xarray.dataset and transposes dimensions into needed format"""
+        """Sets up a xarray.dataset and transposes dimensions into needed format"""
         # set dimensions
         if time_name is None:
             self._time_name = self._get_name_time()
@@ -161,9 +161,6 @@ class TEF_object():
                 if isinstance(var, np.datetime64):
                     return dim
             # no 'time' dimension found
-            raise Warning(
-                "\n 'time' dimension (dtype='datetime64[ns]') not found."
-            )
             return None
 
     def _get_name_longitude(self):
@@ -176,9 +173,6 @@ class TEF_object():
                dim in ['lon', 'longitude', 'x']):
                    return dim
         # no 'longitude' dimension found
-        raise Warning(
-            "\n 'longitude' dimension (unit='degrees_east') not found."
-        )
         return None
 
 
@@ -192,9 +186,6 @@ class TEF_object():
                 dim in ['lat', 'latitude', 'y']):
                 return dim
         # no 'latitude' dimension found
-        raise Warning(
-            "\n 'latitude' dimension (unit='degrees_north') not found."
-        )
         return None
 
     def _get_name_depth(self):
@@ -207,9 +198,6 @@ class TEF_object():
                 dim in ['level', 'depth']):
                 return dim
         # no 'latitude' dimension found
-        raise Warning(
-            "\n 'depth not found"
-        )
         return None
 
     from .calc import convert_q_to_Q
