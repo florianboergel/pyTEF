@@ -22,7 +22,7 @@ entries:
       title: Example 1
       url: example_persian_gulf.html
     - output: web,pdf
-      title: Title
+      title: Download TEF test data
       url: download_test_data.html
     output: web
     title: pyTEF
