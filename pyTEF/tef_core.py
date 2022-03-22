@@ -199,8 +199,3 @@ class TEF_object():
                 return dim
         # no 'latitude' dimension found
         return None
-
-    from .calc import convert_q_to_Q
-    from .calc import sort_1dim
-    from .calc import sort_2dim
-    from .calc import calc_bulk_values

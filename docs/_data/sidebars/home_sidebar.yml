@@ -24,6 +24,9 @@ entries:
     - output: web,pdf
       title: Download TEF test data
       url: download_test_data.html
+    - output: web,pdf
+      title: Title
+      url: Untitled.html
     output: web
     title: pyTEF
   output: web

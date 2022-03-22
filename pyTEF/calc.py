@@ -149,9 +149,10 @@ def sort_1dim(self, sort_by_variable = None, transport = None, N = 1024, minmaxr
 
     for i in tqdm(range(N)):
         #Sorting into bins
-        out_q[:, i] = transport.where(idx == i).sum([self._get_name_depth(),
-                                                     self._get_name_latitude(),
-                                                     self._get_name_longitude()],dtype=np.float64) / delta_var
+        out_q[:, i] = transport.where(idx == i).sum([self._depth_name,
+                                                     self._latitude_name,
+                                                     self._longitude_name],
+                                                     dtype=np.float64) / delta_var
 
     out_Q = np.append(np.cumsum(out_q[:,::-1],axis=1)[:,::-1],np.zeros((self.timesteps,1)),axis=1)*delta_var
 
