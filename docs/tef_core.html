@@ -54,9 +54,8 @@ nb_path: "00_tef_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="TEF_object" class="doc_header"><code>class</code> <code>TEF_object</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L12" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TEF_object</code>(<strong><code>filename</code></strong>=<em><code>None</code></em>, <strong><code>ds</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h2 id="constructorTEF" class="doc_header"><code>class</code> <code>constructorTEF</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L20" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>constructorTEF</code>(<strong><code>inputFile</code></strong>, <strong><code>data_description</code></strong>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
-<p>Total Exchange Flow (TEF) Object used for calculating TEF properties</p>
 
 </div>
 
@@ -115,7 +114,7 @@ nb_path: "00_tef_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TEF_object.read" class="doc_header"><code>TEF_object.read</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L78" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object.read</code>(<strong><code>filename</code></strong>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="TEF_object.read" class="doc_header"><code>TEF_object.read</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L118" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object.read</code>(<strong><code>filename</code></strong>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Reads xarray dataset</p>
 
@@ -147,7 +146,7 @@ nb_path: "00_tef_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TEF_object.set_up" class="doc_header"><code>TEF_object.set_up</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L86" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object.set_up</code>(<strong><code>time_name</code></strong>=<em><code>None</code></em>, <strong><code>longitude_name</code></strong>=<em><code>None</code></em>, <strong><code>latitude_name</code></strong>=<em><code>None</code></em>, <strong><code>depth_name</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="TEF_object.set_up" class="doc_header"><code>TEF_object.set_up</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L126" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object.set_up</code>(<strong><code>time_name</code></strong>=<em><code>None</code></em>, <strong><code>longitude_name</code></strong>=<em><code>None</code></em>, <strong><code>latitude_name</code></strong>=<em><code>None</code></em>, <strong><code>depth_name</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Sets up a xarray.dataset and transposes dimensions into needed format</p>
 
@@ -248,7 +247,7 @@ nb_path: "00_tef_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TEF_object._get_name_time" class="doc_header"><code>TEF_object._get_name_time</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L138" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object._get_name_time</code>(<strong><code>x</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="TEF_object._get_name_time" class="doc_header"><code>TEF_object._get_name_time</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L178" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object._get_name_time</code>(<strong><code>x</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>check for 'time' dimension and return name</p>
 
@@ -273,7 +272,7 @@ nb_path: "00_tef_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TEF_object._get_name_depth" class="doc_header"><code>TEF_object._get_name_depth</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L191" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object._get_name_depth</code>()</p>
+<h4 id="TEF_object._get_name_depth" class="doc_header"><code>TEF_object._get_name_depth</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L231" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object._get_name_depth</code>()</p>
 </blockquote>
 <p>check for 'depth' dimension and return name</p>
 
@@ -298,7 +297,7 @@ nb_path: "00_tef_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TEF_object._get_name_longitude" class="doc_header"><code>TEF_object._get_name_longitude</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L166" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object._get_name_longitude</code>()</p>
+<h4 id="TEF_object._get_name_longitude" class="doc_header"><code>TEF_object._get_name_longitude</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L206" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object._get_name_longitude</code>()</p>
 </blockquote>
 <p>check for 'longitude' dimension and return name</p>
 
@@ -323,7 +322,7 @@ nb_path: "00_tef_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TEF_object._get_name_latitude" class="doc_header"><code>TEF_object._get_name_latitude</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L179" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object._get_name_latitude</code>()</p>
+<h4 id="TEF_object._get_name_latitude" class="doc_header"><code>TEF_object._get_name_latitude</code><a href="https://github.com/florianboergel/pyTEF/tree/master/pyTEF/tef_core.py#L219" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TEF_object._get_name_latitude</code>()</p>
 </blockquote>
 <p>check for 'latitude' dimension and return name</p>
 
