@@ -159,7 +159,7 @@ def sort_1dim(self, sort_by_variable = None, transport = None, N = 1024, minmaxr
     "q": (["time", "var_q"], out_q),
     "Q": (["time", "var_Q"], out_Q)},
     coords={
-        "time": (["time"], self.ds[self._get_name_time()]),
+        "time": (["time"], self.ds[self._get_name_time()].data),
         "var_q": (["var_q"],var_q),
         "var_Q": (["var_Q"], var_Q),
     })
@@ -285,7 +285,7 @@ def sort_2dim(self, sort_by_variable = None,
         "q2": (["time", "var_q", "var_q2"], out_q),
         "Q2": (["time", "var_Q", "var_Q2"], out_Q)},
         coords={
-            "time": (["time"], self.ds[self._get_name_time()]),
+            "time": (["time"], self.ds[self._get_name_time()].data),
             "var_q": (["var_q"],var_q),
             "var_q2": (["var_q2"], var_q2),
             "var_Q": (["var_Q"], var_Q),
