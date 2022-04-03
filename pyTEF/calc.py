@@ -110,7 +110,7 @@ def sort_1dim(constructorTEF,
             print("Warning: Given minimum value is greater than the minimum value of the variable.")
             print("Warning: Given {}, minmum value of variable {}".format(minmaxrange[0],
                                                                  constructorTEF.tracer.min().values))
-        if minmaxrange[-1] < sort_by_variable.max().values:
+        if minmaxrange[-1] < constructorTEF.tracer.max().values:
             print("Warning: Given maximum value is smaller than the maximum value of the variable.")
             print("Warning: Given {}, maximum value of variable {}".format(minmaxrange[-1],
                                                                  constructorTEF.tracer.max().values))
@@ -173,9 +173,9 @@ def sort_1dim(constructorTEF,
 
 # Cell
 def sort_2dim(constructorTEF,
-                N = (1024, 1024),
-                    minmaxrange = None,
-                    minmaxrange2 = None):
+              N = (1024, 1024),
+              minmaxrange = None,
+              minmaxrange2 = None):
         """Sort transport by two given variables"""
         if constructorTEF.tracer[0] is None:
             raise ValueError("Please define a variable that you want to sort by.")
@@ -268,7 +268,7 @@ def sort_2dim(constructorTEF,
             var_Q2 = np.linspace(varmin2, varmax2, N2+1)
 
         #sortingt
-        idx = xr.apply_ufunc(np.digitize, constructorTEF.tracer[1], var_Q)
+        idx = xr.apply_ufunc(np.digitize, constructorTEF.tracer[0], var_Q)
         idy = xr.apply_ufunc(np.digitize, constructorTEF.tracer[1], var_Q2)
 
         out_q = np.zeros((len(constructorTEF.ds.time),N1, N2))
@@ -298,8 +298,7 @@ def sort_2dim(constructorTEF,
         return out
 
 # Cell
-def calc_bulk_values(self,
-                     coord,
+def calc_bulk_values(coord,
                      Q,
                      Q_thresh=None,
                      index=None,
@@ -370,7 +369,7 @@ def calc_bulk_values(self,
             "index": (["time","o"], np.array(indices).astype(int)),
         },
         coords={
-            "time": (["time"], _get_time_array(Q)),
+            "time": (["time"], Q.time.data),
             "m": (["m"],np.arange(Qin_ar.shape[1])),
             "n": (["n"],np.arange(Qout_ar.shape[1])),
             "o": (["o"],np.arange(divval_ar.shape[1])),
@@ -446,7 +445,7 @@ def _get_time_array(x):
     return time_array
 
 # Cell
-def _find_extrema(x,min_transport):
+def _find_extrema(x, min_transport):
     """
     internal function called by calc_bulk values to find the extrema in the transport function x
     and label them correctly, see Appendix B in Lorenz et al. (2019).
