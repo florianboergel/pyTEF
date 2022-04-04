@@ -9,7 +9,7 @@ from tqdm import tqdm
 import time
 
 # Cell
-def convert_q_to_Q(self, var_q, q, var_q2 = None):
+def convert_q_to_Q(var_q, q, var_q2 = None):
     """Converts transport per coordinate class `q` to the integrated transport `Q` with the respective coordinates.
         Use if q is already computed separately."""
     if len(q.shape) == 1:
@@ -93,25 +93,27 @@ def convert_q_to_Q(self, var_q, q, var_q2 = None):
         return out
 
 # Cell
-def sort_1dim(self, sort_by_variable = None, transport = None, N = 1024, minmaxrange = None):
+def sort_1dim(constructorTEF,
+              N = 1024,
+              minmaxrange = None):
     """Performs coordinate transformation by given variable."""
-    if sort_by_variable is None:
+    if constructorTEF.tracer is None:
         raise ValueError("Please define a variable that you want to sort by.")
-    if transport is None:
+    if constructorTEF.transport is None:
         raise ValueError("Please provide transport term.")
 
     if minmaxrange is None:
-        varmin = np.floor(sort_by_variable.min().values)
-        varmax = np.ceil(sort_by_variable.max().values)
+        varmin = np.floor(constructorTEF.tracer.min().values)
+        varmax = np.ceil(constructorTEF.tracer.max().values)
     else:
-        if minmaxrange[0] > sort_by_variable.min().values:
+        if minmaxrange[0] > constructorTEF.tracer.min().values:
             print("Warning: Given minimum value is greater than the minimum value of the variable.")
             print("Warning: Given {}, minmum value of variable {}".format(minmaxrange[0],
-                                                                 sort_by_variable.min().values))
-        if minmaxrange[-1] < sort_by_variable.max().values:
+                                                                 constructorTEF.tracer.min().values))
+        if minmaxrange[-1] < constructorTEF.tracer.max().values:
             print("Warning: Given maximum value is smaller than the maximum value of the variable.")
             print("Warning: Given {}, maximum value of variable {}".format(minmaxrange[-1],
-                                                                 sort_by_variable.max().values))
+                                                                 constructorTEF.tracer.max().values))
         if type(minmaxrange) != "numpy.ndarray" and type(minmaxrange) is not tuple:
             raise ValueError("Please provide array range, e.g. np.arange(0,10), or a tuple, e.g. (0,10).")
 
@@ -143,23 +145,26 @@ def sort_1dim(self, sort_by_variable = None, transport = None, N = 1024, minmaxr
 
     # Changelog: 27.05.2021: Change var_Q to var_q
     # compute the index idx that will be used for sorting
-    idx = xr.apply_ufunc(np.digitize, sort_by_variable, var_q)
+    idx = xr.apply_ufunc(np.digitize, constructorTEF.tracer, var_q)
 
-    out_q = np.zeros((self.timesteps,N))
+    out_q = np.zeros((len(constructorTEF.ds.time), N))
 
     for i in tqdm(range(N)):
         #Sorting into bins
-        out_q[:, i] = transport.where(idx == i).sum([self._get_name_depth(),
-                                                     self._get_name_latitude(),
-                                                     self._get_name_longitude()],dtype=np.float64) / delta_var
+        out_q[:, i] = constructorTEF.transport.where(idx == i).sum(["depth",
+                                                                    "lat",
+                                                                    "lon"],
+                                                     dtype=np.float64) / delta_var
 
-    out_Q = np.append(np.cumsum(out_q[:,::-1],axis=1)[:,::-1],np.zeros((self.timesteps,1)),axis=1)*delta_var
+    out_Q = np.append(np.cumsum(out_q[:,::-1],
+                                axis=1)[:,::-1],
+                      np.zeros((len(constructorTEF.ds.time), 1)),axis=1)*delta_var
 
     out = xr.Dataset({
     "q": (["time", "var_q"], out_q),
     "Q": (["time", "var_Q"], out_Q)},
     coords={
-        "time": (["time"], self.ds[self._get_name_time()].data),
+        "time": (["time"], constructorTEF.ds["time"].data),
         "var_q": (["var_q"],var_q),
         "var_Q": (["var_Q"], var_Q),
     })
@@ -167,33 +172,31 @@ def sort_1dim(self, sort_by_variable = None, transport = None, N = 1024, minmaxr
     return out
 
 # Cell
-def sort_2dim(self, sort_by_variable = None,
-                    sort_by_variable2 = None,
-                    transport = None,
-                    N = (1024, 1024),
-                    minmaxrange = None,
-                    minmaxrange2 = None):
+def sort_2dim(constructorTEF,
+              N = (1024, 1024),
+              minmaxrange = None,
+              minmaxrange2 = None):
         """Sort transport by two given variables"""
-        if sort_by_variable is None:
+        if constructorTEF.tracer[0] is None:
             raise ValueError("Please define a variable that you want to sort by.")
-        if sort_by_variable2 is None:
+        if constructorTEF.tracer[1] is None:
             raise ValueError("Please define a second variable that you want to sort by.")
 
-        if transport is None:
+        if constructorTEF.transport is None:
             raise ValueError("Please provided transport term.")
 
         if minmaxrange is None:
-            varmin = np.floor(sort_by_variable.min().values)
-            varmax = np.ceil(sort_by_variable.max().values)
+            varmin = np.floor(constructorTEF.tracer[0].min().values)
+            varmax = np.ceil(constructorTEF.tracer[0].max().values)
         else:
-            if minmaxrange[0] > sort_by_variable.min().values:
+            if minmaxrange[0] > constructorTEF.tracer[0].min().values:
                 print("Warning: Given minimum value is gretaer than the minimum value of the variable.")
                 print("Warning: Given {}, minmum value of variable {}".format(minmaxrange[0],
-                                                                     sort_by_variable.min().values))
-            if minmaxrange[-1] < sort_by_variable.max().values:
+                                                                     constructorTEF.tracer[0].min().values))
+            if minmaxrange[-1] < constructorTEF.tracer[0].max().values:
                 print("Warning: Given maximum value is smaller than the maximum value of the variable.")
                 print("Warning: Given {}, maximum value of variable {}".format(minmaxrange[-1],
-                                                                     sort_by_variable.max().values))
+                                                                     constructorTEF.tracer[0].max().values))
             if type(minmaxrange) != "numpy.ndarray" and type(minmaxrange) is not tuple:
                 raise ValueError("Please provide array range, e.g. np.arange(0,10), or a tuple, e.g. (0,10).")
             else:
@@ -202,17 +205,17 @@ def sort_2dim(self, sort_by_variable = None,
                 varmax = minmaxrange[-1]
 
         if minmaxrange2 is None:
-            varmin2 = np.floor(sort_by_variable2.min().values)
-            varmax2 = np.ceil(sort_by_variable2.max().values)
+            varmin2 = np.floor(constructorTEF.tracer[1].min().values)
+            varmax2 = np.ceil(constructorTEF.tracer[1].max().values)
         else:
-            if minmaxrange2[0] > sort_by_variable2.min().values:
+            if minmaxrange2[0] > constructorTEF.tracer[1].min().values:
                 print("Warning: Given minimum value is greater than the minimum value of the variable.")
                 print("Warning: Given {}, minmum value of variable {}".format(minmaxrange2[0],
-                                                                     sort_by_variable2.min().values))
-            if minmaxrange2[-1] < sort_by_variable2.max().values:
+                                                                     constructorTEF.tracer[1].min().values))
+            if minmaxrange2[-1] < constructorTEF.tracer[1].max().values:
                 print("Warning: Given maximum value is smaller than the maximum value of the variable.")
                 print("Warning: Given {}, maximum value of variable {}".format(minmaxrange2[-1],
-                                                                     sort_by_variable2.max().values))
+                                                                     constructorTEF.tracer[1].max().values))
             if type(minmaxrange2) != "numpy.ndarray" and type(minmaxrange2) is not tuple:
                 raise ValueError("Please provide array range, e.g. np.arange(0,10), or a tuple, e.g. (0,10).")
             else:
@@ -265,19 +268,19 @@ def sort_2dim(self, sort_by_variable = None,
             var_Q2 = np.linspace(varmin2, varmax2, N2+1)
 
         #sortingt
-        idx = xr.apply_ufunc(np.digitize, sort_by_variable, var_Q)
-        idy = xr.apply_ufunc(np.digitize, sort_by_variable2, var_Q2)
+        idx = xr.apply_ufunc(np.digitize, constructorTEF.tracer[0], var_Q)
+        idy = xr.apply_ufunc(np.digitize, constructorTEF.tracer[1], var_Q2)
 
-        out_q = np.zeros((self.timesteps,N1, N2))
+        out_q = np.zeros((len(constructorTEF.ds.time),N1, N2))
 
         for i in tqdm(range(N1)):
             for j in range(N2):
                 #print(self._get_name_depth(),self._get_name_latitude(),self._get_name_longitude())
-                out_q[:, i, j] = transport.where((idx == i) & (idy == j)).sum([self._get_name_depth(),
-                                                                          self._get_name_latitude(),
-                                                                          self._get_name_longitude()],dtype=np.float64) / delta_var / delta_var2
+                out_q[:, i, j] = constructorTEF.transport.where((idx == i) & (idy == j)).sum(["depth",
+                                                                                              "lat",
+                                                                                              "lon"],dtype=np.float64) / delta_var / delta_var2
 
-        out_Q = np.zeros((self.timesteps, N1+1, N2+1))
+        out_Q = np.zeros((len(constructorTEF.ds.time), N1+1, N2+1))
         out_Q_tmp = np.cumsum(np.cumsum(out_q[:,::-1,::-1],axis=1),axis=2)[:,::-1,::-1]*delta_var2*delta_var
         out_Q[:,:-1,:-1] = out_Q_tmp
 
@@ -285,7 +288,7 @@ def sort_2dim(self, sort_by_variable = None,
         "q2": (["time", "var_q", "var_q2"], out_q),
         "Q2": (["time", "var_Q", "var_Q2"], out_Q)},
         coords={
-            "time": (["time"], self.ds[self._get_name_time()].data),
+            "time": (["time"], constructorTEF.ds["time"].data),
             "var_q": (["var_q"],var_q),
             "var_q2": (["var_q2"], var_q2),
             "var_Q": (["var_Q"], var_Q),
@@ -295,8 +298,7 @@ def sort_2dim(self, sort_by_variable = None,
         return out
 
 # Cell
-def calc_bulk_values(self,
-                     coord,
+def calc_bulk_values(coord,
                      Q,
                      Q_thresh=None,
                      index=None,
@@ -367,7 +369,7 @@ def calc_bulk_values(self,
             "index": (["time","o"], np.array(indices).astype(int)),
         },
         coords={
-            "time": (["time"], _get_time_array(Q)),
+            "time": (["time"], Q.time.data),
             "m": (["m"],np.arange(Qin_ar.shape[1])),
             "n": (["n"],np.arange(Qout_ar.shape[1])),
             "o": (["o"],np.arange(divval_ar.shape[1])),
@@ -443,7 +445,7 @@ def _get_time_array(x):
     return time_array
 
 # Cell
-def _find_extrema(x,min_transport):
+def _find_extrema(x, min_transport):
     """
     internal function called by calc_bulk values to find the extrema in the transport function x
     and label them correctly, see Appendix B in Lorenz et al. (2019).
