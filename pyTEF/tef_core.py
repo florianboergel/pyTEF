@@ -9,6 +9,8 @@ import numpy as np
 import xarray as xr
 import time
 
+from . import calc
+
 # %% ../00_tef_core.ipynb 3
 class constructorTEF:
     def __init__(self, inputFile, data_description, **kwargs):
@@ -32,7 +34,7 @@ class constructorTEF:
         """
         if isinstance(inputFile, str):
             try:
-                self._read(fileName=inputFile)
+                self._read(inputFile, **kwargs)
             except (OSError, IOError, RunetimeError):
                 raise IOError("Could not read file.")
         elif isinstance(inputFile, xr.Dataset):
@@ -66,3 +68,11 @@ class constructorTEF:
                                     "depth",
                                     "lat",
                                     "lon")
+
+    def sort_1dim(self, N=1024, minmaxrange=None):
+        """Transform self.transport into self.tracer-coordinates with N bins in minmaxrange."""
+        return calc.sort_1dim(self, N, minmaxrange)
+
+    def sort_2dim(self, N=(1024, 1024), minmaxrange=None, minmaxrange2=None):
+        """Transform self.transport into 2-dimensional self.tracer-coordinates."""
+        return calc.sort_2dim(self, N, minmaxrange, minmaxrange2)

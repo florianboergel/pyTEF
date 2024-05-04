@@ -14,5 +14,7 @@ d = { 'settings': { 'branch': 'master',
             'pyTEF.tef_core': { 'pyTEF.tef_core.constructorTEF': ('tef_core.html#constructortef', 'pyTEF/tef_core.py'),
                                 'pyTEF.tef_core.constructorTEF.__init__': ('tef_core.html#__init__', 'pyTEF/tef_core.py'),
                                 'pyTEF.tef_core.constructorTEF._read': ('tef_core.html#_read', 'pyTEF/tef_core.py'),
-                                'pyTEF.tef_core.constructorTEF._setup': ('tef_core.html#_setup', 'pyTEF/tef_core.py')},
+                                'pyTEF.tef_core.constructorTEF._setup': ('tef_core.html#_setup', 'pyTEF/tef_core.py'),
+                                'pyTEF.tef_core.constructorTEF.sort_1dim': ('tef_core.html#sort_1dim', 'pyTEF/tef_core.py'),
+                                'pyTEF.tef_core.constructorTEF.sort_2dim': ('tef_core.html#sort_2dim', 'pyTEF/tef_core.py')},
             'pyTEF.tutorial': {'pyTEF.tutorial.download_test_data': ('download_test_data.html#download_test_data', 'pyTEF/tutorial.py')}}}
