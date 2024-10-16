@@ -276,10 +276,12 @@ def sort_2dim(constructorTEF,
         
         for i in tqdm(range(N1)):
             for j in range(N2):
-                #print(self._get_name_depth(),self._get_name_latitude(),self._get_name_longitude())
-                out_q[:, i, j] = constructorTEF.transport.where((idx == i) & (idy == j)).sum(["depth",
-                                                                                              "lat",
-                                                                                              "lon"],dtype=np.float64) / delta_var / delta_var2
+                indices = (idx == i) & (idy == j)
+                if indices.any():
+                    out_q[:, i, j] = constructorTEF.transport.where(indices).sum(["depth", "lat", "lon"],
+                                                                                 dtype=np.float64) / delta_var / delta_var2
+                else:
+                    out_q[:, i, j] = np.NaN
         
         out_Q = np.zeros((len(constructorTEF.ds.time), N1+1, N2+1))
         out_Q_tmp = np.cumsum(np.cumsum(out_q[:,::-1,::-1],axis=1),axis=2)[:,::-1,::-1]*delta_var2*delta_var
