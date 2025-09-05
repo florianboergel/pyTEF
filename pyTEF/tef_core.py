@@ -35,7 +35,7 @@ class constructorTEF:
         if isinstance(inputFile, str):
             try:
                 self._read(inputFile, **kwargs)
-            except (OSError, IOError, RunetimeError):
+            except (OSError, IOError, RuntimeError):
                 raise IOError("Could not read file.")
         elif isinstance(inputFile, xr.Dataset):
             self.ds = inputFile
