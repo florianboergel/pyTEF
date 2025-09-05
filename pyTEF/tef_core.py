@@ -49,7 +49,7 @@ class constructorTEF:
         self.transport = None
         self.tracer = None
         
-    def _read(self, fileName, **kwargs):
+    def _read(self, filename, **kwargs):
         self.ds = xr.open_dataset(filename, use_cftime=True, **kwargs)
         
     def _setup(self, data):
