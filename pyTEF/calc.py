@@ -281,10 +281,10 @@ def sort_2dim(constructorTEF,
                     out_q[:, i, j] = constructorTEF.transport.where(indices).sum(["depth", "lat", "lon"],
                                                                                  dtype=np.float64) / delta_var / delta_var2
                 else:
-                    out_q[:, i, j] = np.NaN
+                    out_q[:, i, j] = np.nan
         
         out_Q = np.zeros((len(constructorTEF.ds.time), N1+1, N2+1))
-        out_Q_tmp = np.cumsum(np.cumsum(out_q[:,::-1,::-1],axis=1),axis=2)[:,::-1,::-1]*delta_var2*delta_var
+        out_Q_tmp = np.nancumsum(np.nancumsum(out_q[:,::-1,::-1],axis=1),axis=2)[:,::-1,::-1]*delta_var2*delta_var
         out_Q[:,:-1,:-1] = out_Q_tmp
         
         out = xr.Dataset({
